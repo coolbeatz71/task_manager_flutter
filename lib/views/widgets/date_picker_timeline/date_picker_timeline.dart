@@ -1,7 +1,7 @@
 library date_picker_timeline;
 
+import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/date_widget.dart';
-import 'package:todo_app/views/widgets/date_picker_timeline/core/color.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/core/style.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/gestures/tap.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +28,7 @@ class DatePickerTimeline extends StatefulWidget {
     this.monthTextStyle = defaultMonthTextStyle,
     this.dayTextStyle = defaultDayTextStyle,
     this.dateTextStyle = defaultDateTextStyle,
-    this.selectionColor = AppColors.defaultSelectionColor,
+    this.selectionColor = AppColors.primary,
     this.daysCount = 50000,
     this.onDateChange,
     this.locale = "en_US",
@@ -42,7 +42,6 @@ class _DatePickerState extends State<DatePickerTimeline> {
   @override
   void initState() {
     super.initState();
-
     initializeDateFormatting(widget.locale, null);
   }
 

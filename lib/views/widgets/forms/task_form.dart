@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/helpers/colors.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({
@@ -77,8 +78,8 @@ class _TaskFormState extends State<TaskForm> {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 18, horizontal: 40),
                 textColor: Colors.white,
-                color: Color(0xFFEC407A),
-                splashColor: Color(0xFFAD1457),
+                color: AppColors.primary,
+                splashColor: AppColors.primaryAccent,
                 child: SizedBox(
                   width: double.infinity,
                   child: Text(
