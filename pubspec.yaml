@@ -19,7 +19,7 @@ dependencies:
   validators: ^2.0.0
   curved_navigation_bar: ^0.3.2
   flutter_spinkit: "^4.1.2"
-
+  giffy_dialog: ^1.7.0
   cupertino_icons: ^0.1.2
 
 dev_dependencies:
