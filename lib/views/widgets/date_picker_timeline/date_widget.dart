@@ -32,8 +32,8 @@ class DateWidget extends StatelessWidget {
         ),
         child: Padding(
           padding: const EdgeInsets.only(
-            top: 8.0,
-            bottom: 8.0,
+            top: 2.0,
+            bottom: 2.0,
             left: 15,
             right: 15,
           ),

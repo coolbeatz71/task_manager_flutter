@@ -9,18 +9,21 @@ dependencies:
   flutter:
     sdk: flutter
 
-  cloud_firestore:
-  firebase_auth:
   intl:
+  cloud_firestore: ^0.13.3
+  firebase_auth: ^0.15.5+2
   font_awesome_flutter: ^8.7.0
   flutter_svg: ^0.17.1
   uuid: ^2.0.4
   localstorage: ^3.0.0
   validators: ^2.0.0
   curved_navigation_bar: ^0.3.2
-  flutter_spinkit: "^4.1.2"
-
+  flutter_spinkit: ^4.1.2
+  giffy_dialog: ^1.7.0
   cupertino_icons: ^0.1.2
+  equatable: ^1.1.0
+  flutter_bloc: ^3.2.0
+  simple_animations: ^1.3.8
 
 dev_dependencies:
   flutter_test:

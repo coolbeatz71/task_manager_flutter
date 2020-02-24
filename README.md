@@ -1,10 +1,8 @@
-# todo_app_flutter
-A simple TODO app just for learning Flutter and firebase
+# Task manager app
+A fancy task manager application for learning Flutter, Bloc pattern and Firebase
 
-## technologies used
+## Technologies used
 - Flutter
+- Bloc
 - Dart
 - Firebase
-
-## caution
-The app only supports Android version above Android 4.3 (`API level 18`). It won't work for earlier versions.
