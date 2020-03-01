@@ -3,22 +3,24 @@ import 'package:todo_app/models/task.dart';
 
 class FirestoreService {
   static final FirestoreService _firestoreService = FirestoreService._();
-  Firestore _db = Firestore.instance;
+  static final Firestore _db = Firestore.instance;
 
   FirestoreService._();
   factory FirestoreService() => _firestoreService;
 
+  CollectionReference collection = _db.collection('task');
+
   Stream<List<Task>> getTaskByUser(String userId) {
-    return _db
-        .collection('task')
-        .where("userId", isEqualTo: userId)
-        .snapshots()
-        .map(
+    return collection.where("userId", isEqualTo: userId).snapshots().map(
           (snapshot) => snapshot.documents
               .map(
-                (doc) => Task.fromMap(doc.data),
+                (doc) => Task.fromSnapshot(doc),
               )
               .toList(),
         );
   }
+
+  Future<void> createTask(Task task) async => collection.add(
+        task.toDocument(),
+      );
 }

@@ -1,10 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:todo_app/helpers/utils.dart';
 
 class Task {
   final String userId;
   final String title;
   final String note;
   final DateTime date;
+  final TimeOfDay time;
   final bool isCompleted;
 
   Task({
@@ -12,23 +15,26 @@ class Task {
     this.title,
     this.note,
     this.date,
+    this.time,
     this.isCompleted,
   });
 
-  Map<String, dynamic> toMap() {
+  Map<String, Object> toDocument() {
     return {
       'userId': userId,
       'title': title,
       'note': note,
-      'date': date,
+      'date': Utils.dateToString(date),
+      'time': Utils.formatTime(time),
       'isCompleted': isCompleted,
     };
   }
 
-  Task.fromMap(Map<String, dynamic> map)
-      : userId = map['userId'],
-        title = map['title'],
-        note = map['note'],
-        date = (map['date'] as Timestamp).toDate(),
-        isCompleted = map['isCompleted'];
+  Task.fromSnapshot(DocumentSnapshot snap)
+      : userId = snap.data['userId'],
+        title = snap.data['title'],
+        note = snap.data['note'],
+        date = Utils.toDateTime(snap.data['date']),
+        time = Utils.toTime(snap.data['time']),
+        isCompleted = snap.data['isCompleted'];
 }

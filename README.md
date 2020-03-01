@@ -1,7 +1,8 @@
-# Todo_app_flutter
-A simple TODO app just for learning Flutter and firebase
+# Task manager app
+A fancy task manager application for learning Flutter, Bloc pattern and Firebase
 
 ## Technologies used
 - Flutter
+- Bloc
 - Dart
 - Firebase

@@ -11,7 +11,7 @@ class BottomSheetContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        margin: EdgeInsets.only(bottom: 8, left: 8, right: 8),
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
@@ -22,11 +22,11 @@ class BottomSheetContainer extends StatelessWidget {
           ),
         ),
         child: Container(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(bottom: 30.0, top: 10.0),
+                padding: const EdgeInsets.only(bottom: 5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -43,16 +43,21 @@ class BottomSheetContainer extends StatelessWidget {
                     ),
                     Flexible(
                       child: InkWell(
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: AppColors.darkGrey,
-                            fontFamily: 'Open Sans',
+                        child: Theme(
+                          data: new ThemeData(accentColor: Colors.transparent),
+                          child: FloatingActionButton(
+                            elevation: 0,
+                            mini: true,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              size: 22,
+                              color: AppColors.darkGrey,
+                            ),
                           ),
                         ),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
                       ),
                     )
                   ],
