@@ -28,6 +28,7 @@ class _ProfileState extends State<Profile> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBody: true,
       body: PageView(
         controller: _pageController,
         children: <Widget>[
@@ -43,7 +44,7 @@ class _ProfileState extends State<Profile> {
       ),
       bottomNavigationBar: CurvedNavigationBar(
         key: _bottomNavigationKey,
-        height: 50.0,
+        height: 65,
         animationDuration: Duration(milliseconds: 200),
         index: _currentPage,
         items: <Widget>[
@@ -73,13 +74,11 @@ class TabIcon extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(6),
-      margin: EdgeInsets.all(6),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Icon(icon, size: 25, color: AppColors.primary),
-        ],
+      padding: EdgeInsets.all(5),
+      margin: EdgeInsets.all(5),
+      child: Align(
+        alignment: Alignment(0.0, 0.5),
+        child: Icon(icon, size: 25, color: AppColors.primary),
       ),
     );
   }

@@ -13,7 +13,7 @@ class BtnCreateTask extends StatelessWidget {
   Widget build(BuildContext context) {
     return FlatButton.icon(
       shape: RoundedRectangleBorder(
-        borderRadius: new BorderRadius.circular(4.0),
+        borderRadius: BorderRadius.circular(4.0),
       ),
       padding: EdgeInsets.symmetric(vertical: 18, horizontal: 40),
       textColor: Colors.white,

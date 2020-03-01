@@ -26,7 +26,7 @@ class BottomSheetContainer extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(bottom: 30.0, top: 10.0),
+                padding: const EdgeInsets.only(bottom: 10.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -43,16 +43,21 @@ class BottomSheetContainer extends StatelessWidget {
                     ),
                     Flexible(
                       child: InkWell(
-                        child: Text(
-                          'Cancel',
-                          style: TextStyle(
-                            color: AppColors.darkGrey,
-                            fontFamily: 'Open Sans',
+                        child: Theme(
+                          data: new ThemeData(accentColor: Colors.transparent),
+                          child: FloatingActionButton(
+                            elevation: 0,
+                            mini: true,
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: Icon(
+                              Icons.close,
+                              size: 22,
+                              color: AppColors.darkGrey,
+                            ),
                           ),
                         ),
-                        onTap: () {
-                          Navigator.of(context).pop();
-                        },
                       ),
                     )
                   ],

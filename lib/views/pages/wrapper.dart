@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/core/dialog.dart';
+import 'package:todo_app/helpers/colors.dart';
 // import 'package:todo_app/services/auth_key.dart';
 import 'package:todo_app/services/firestore.dart';
 import 'package:todo_app/views/pages/home/home.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo_app/views/pages/profile/profile.dart';
-import 'package:giffy_dialog/giffy_dialog.dart';
 
 class Wrapper extends StatelessWidget {
   const Wrapper({Key key}) : super(key: key);
@@ -37,10 +37,7 @@ class Wrapper extends StatelessWidget {
           }
 
           if (!snapshot.hasData) {
-            return SpinKitThreeBounce(
-              color: Colors.pink,
-              size: 30,
-            );
+            return SpinKitThreeBounce(color: AppColors.primary, size: 30);
           }
 
           if (data.length == 0) return Home();

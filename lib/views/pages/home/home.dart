@@ -2,18 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo_app/helpers/colors.dart';
-import 'package:todo_app/views/pages/home/bottomsheet.dart';
+import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/views/pages/home/btn_create_task.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
 
   showCreateTaskModal(BuildContext context) {
-    showModalBottomSheet(
-      context: context,
-      isScrollControlled: true,
-      builder: (context) => BottomSheetContainer(),
-    );
+    Utils.showBottomSheet(context);
   }
 
   @override
