@@ -114,7 +114,6 @@ class _TaskCardState extends State<TaskCard> {
             onChanged: (value) {
               setState(() {
                 isSwitched = value;
-                print(isSwitched);
               });
             },
             activeColor: AppColors.secondary,

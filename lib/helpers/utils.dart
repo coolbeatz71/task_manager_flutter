@@ -27,23 +27,81 @@ class Utils {
     return DateFormat.jm().format(timeToDateTime(time));
   }
 
-  /// Convert a date [dateTime] to [String]
   static String dateToString(DateTime date) => date.toString();
 
-  /// Convert a date [String] to [DateTime]
-  static DateTime toDateTime(String date) => DateTime.parse(date);
+  static DateTime toDate(String date) => DateTime.parse(date);
 
-  /// Convert a date to "H:mm AM/PM" format
-  static TimeOfDay toTime(String date) {
-    return TimeOfDay.fromDateTime(DateTime.parse(date));
-  }
-
-  /// get Hour from a time [TimeOfDay]
   static String getHour(TimeOfDay time) {
     String hour = formatTime(time).split(":")[0];
     return (hour.length == 1) ? '0$hour' : hour;
   }
 
-  /// get Minutes from a time [TimeOfDay]
+  static TimeOfDay toTime(String time) {
+    String hour = time.split(':')[0];
+    String rest = time.split(':')[1];
+    String minute = rest.split(' ')[0];
+    String period = rest.split(' ')[1];
+
+    if (period == 'PM') {
+      int parsedHour = int.parse(hour) + 12;
+      hour = parsedHour.toString();
+    }
+
+    return TimeOfDay(
+      hour: int.parse(hour),
+      minute: int.parse(minute),
+    );
+  }
+
   static String getMinutes(TimeOfDay time) => formatTime(time).split(":")[1];
+
+  Future<Null> selectDate(
+    BuildContext context,
+    TextEditingController date,
+  ) async {
+    DateTime selectedDate = DateTime.now();
+
+    final DateTime picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: selectedDate,
+      lastDate: DateTime(2100),
+    );
+
+    if (picked != null) {
+      selectedDate = picked;
+      date.value = TextEditingValue(
+        text: dateToString(picked).substring(0, 10),
+      );
+    }
+
+    return null;
+  }
+
+  Future<String> selectTime(
+    BuildContext context,
+    TextEditingController time,
+  ) async {
+    TimeOfDay selectedTime = TimeOfDay.now();
+
+    final TimeOfDay picked = await showTimePicker(
+      context: context,
+      initialTime: selectedTime,
+      builder: (BuildContext context, Widget child) {
+        return MediaQuery(
+          data: MediaQuery.of(context).copyWith(alwaysUse24HourFormat: false),
+          child: child,
+        );
+      },
+    );
+
+    if (picked != null) {
+      selectedTime = picked;
+      time.value = TextEditingValue(
+        text: formatTime(picked),
+      );
+    }
+
+    return "";
+  }
 }

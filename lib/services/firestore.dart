@@ -12,15 +12,13 @@ class FirestoreService {
 
   Stream<List<Task>> getTaskByUser(String userId) {
     return collection.where("userId", isEqualTo: userId).snapshots().map(
-          (snapshot) => snapshot.documents
-              .map(
-                (doc) => Task.fromSnapshot(doc),
-              )
-              .toList(),
+          (snapshot) => snapshot.documents.map(
+            (doc) {
+              return Task.fromSnapshot(doc);
+            },
+          ).toList(),
         );
   }
 
-  Future<void> createTask(Task task) async => collection.add(
-        task.toDocument(),
-      );
+  Future<void> createTask(Task task) async => collection.add(task.toDocument());
 }

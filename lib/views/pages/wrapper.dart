@@ -14,8 +14,9 @@ class Wrapper extends StatelessWidget {
   Widget build(BuildContext context) {
     // AuthKeyService _authKey = AuthKeyService();
     // String authId = _authKey.getKey();
-    Stream taskStream = FirestoreService()
-        .getTaskByUser('c9ad90ca-7071-41c4-bb42-7945ea330a3a');
+    Stream taskStream = FirestoreService().getTaskByUser(
+      'c9ad90ca-7071-41c4-bb42-7945ea330a3a',
+    );
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -31,6 +32,10 @@ class Wrapper extends StatelessWidget {
                   title: 'Network error',
                   description:
                       'We are not able to load user data, at this moment...',
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                    return Home();
+                  },
                 ),
               ),
             );

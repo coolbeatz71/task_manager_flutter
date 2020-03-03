@@ -4,9 +4,14 @@ import 'package:todo_app/helpers/colors.dart';
 class AppDialog extends StatelessWidget {
   final String title;
   final String description;
+  final Function onPressed;
 
-  const AppDialog({Key key, @required this.title, @required this.description})
-      : super(key: key);
+  const AppDialog({
+    Key key,
+    @required this.title,
+    @required this.description,
+    this.onPressed,
+  }) : super(key: key);
   @override
   Widget build(BuildContext context) {
     return Dialog(
@@ -78,9 +83,7 @@ class AppDialog extends StatelessWidget {
                 ),
                 padding: EdgeInsets.symmetric(vertical: 18, horizontal: 40),
                 splashColor: AppColors.primary,
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
+                onPressed: onPressed,
                 child: Text(
                   'Ok',
                   style: TextStyle(

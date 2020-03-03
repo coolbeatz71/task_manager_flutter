@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/views/widgets/forms/task_form.dart';
 
@@ -11,7 +13,7 @@ class BottomSheetContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.only(bottom: 10, left: 10, right: 10),
+        margin: EdgeInsets.only(bottom: 8, left: 8, right: 8),
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
@@ -22,11 +24,11 @@ class BottomSheetContainer extends StatelessWidget {
           ),
         ),
         child: Container(
-          padding: const EdgeInsets.all(15),
+          padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(bottom: 10.0),
+                padding: const EdgeInsets.only(bottom: 5.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -63,7 +65,10 @@ class BottomSheetContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              TaskForm(),
+              BlocProvider(
+                create: (context) => TaskBloc(),
+                child: TaskForm(),
+              ),
             ],
           ),
         ),

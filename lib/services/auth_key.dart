@@ -18,7 +18,6 @@ class AuthKeyService {
   String getKey() {
     String authKey = 'auth_key';
     String key = storage.getItem(authKey);
-    print(key);
     return (this.isKeyUUID(key)) ? key : null;
   }
 
