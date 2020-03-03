@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/views/pages/profile/active_task/active_task.dart';
-import 'package:todo_app/views/pages/profile/all_task/all_task.dart';
+import 'package:todo_app/views/pages/profile/all_task/all_task.page.dart';
 import 'package:todo_app/views/pages/profile/completed_task/completed_task.dart';
 
 class Profile extends StatefulWidget {
@@ -52,7 +52,7 @@ class _ProfileState extends State<Profile> {
           TabIcon(icon: Icons.event_busy),
           TabIcon(icon: Icons.event_available),
         ],
-        color: Colors.black12,
+        color: Colors.grey[300],
         buttonBackgroundColor: AppColors.secondary,
         backgroundColor: Colors.white,
         onTap: (int index) {

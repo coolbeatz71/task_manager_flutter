@@ -29,15 +29,28 @@ class Utils {
 
   static String dateToString(DateTime date) => date.toString();
 
-  static DateTime toDateTime(String date) => DateTime.parse(date);
-
-  static TimeOfDay toTime(String date) {
-    return TimeOfDay.fromDateTime(DateTime.parse(date));
-  }
+  static DateTime toDate(String date) => DateTime.parse(date);
 
   static String getHour(TimeOfDay time) {
     String hour = formatTime(time).split(":")[0];
     return (hour.length == 1) ? '0$hour' : hour;
+  }
+
+  static TimeOfDay toTime(String time) {
+    String hour = time.split(':')[0];
+    String rest = time.split(':')[1];
+    String minute = rest.split(' ')[0];
+    String period = rest.split(' ')[1];
+
+    if (period == 'PM') {
+      int parsedHour = int.parse(hour) + 12;
+      hour = parsedHour.toString();
+    }
+
+    return TimeOfDay(
+      hour: int.parse(hour),
+      minute: int.parse(minute),
+    );
   }
 
   static String getMinutes(TimeOfDay time) => formatTime(time).split(":")[1];

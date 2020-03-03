@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/core/validation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
+import 'package:todo_app/models/task.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({
@@ -14,6 +18,7 @@ class TaskForm extends StatefulWidget {
 
 class _TaskFormState extends State<TaskForm> {
   bool _autoValidate = false;
+  bool _isButtonDisabled = false;
 
   final _formKey = GlobalKey<FormState>();
   final Utils utils = Utils();
@@ -54,6 +59,7 @@ class _TaskFormState extends State<TaskForm> {
             ),
             SizedBox(height: 15),
             Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Expanded(
                   child: GestureDetector(
@@ -62,7 +68,10 @@ class _TaskFormState extends State<TaskForm> {
                       child: TextFormField(
                         readOnly: true,
                         controller: _dateCtrl,
-                        validator: (value) => Validate.getMsg('date', value),
+                        validator: (value) => Validate.getMsg(
+                          'date',
+                          value,
+                        ),
                         decoration: buildInputDecoration(
                           false,
                           'Date',
@@ -108,7 +117,7 @@ class _TaskFormState extends State<TaskForm> {
             ),
             SizedBox(height: 20),
             Container(
-              child: buildFlatButton(),
+              child: buildFlatButton(context),
             ),
           ],
         ),
@@ -116,32 +125,73 @@ class _TaskFormState extends State<TaskForm> {
     );
   }
 
-  FlatButton buildFlatButton() {
+  FlatButton buildFlatButton(BuildContext context) {
     return FlatButton(
-      onPressed: () {
-        if (_formKey.currentState.validate()) {
-          print('valid');
-        } else {
-          print('invalid');
-          setState(() => _autoValidate = true);
-        }
-      },
+      onPressed: _isButtonDisabled
+          ? null
+          : () {
+              if (_formKey.currentState.validate()) {
+                DateTime date = Utils.toDate(_dateCtrl.text);
+                TimeOfDay time = Utils.toTime(_timeCtrl.text);
+
+                Task newTask = Task(
+                  userId: 'c9ad90ca-7071-41c4-bb42-7945ea330a3a',
+                  title: _titleCtrl.text,
+                  note: _noteCtrl.text,
+                  date: date,
+                  time: time,
+                  isCompleted: false,
+                );
+
+                BlocProvider.of<TaskBloc>(context).add(
+                  CreateTaskEvent(newTask),
+                );
+              } else {
+                setState(() => _autoValidate = true);
+              }
+            },
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(4.0),
       ),
       padding: EdgeInsets.symmetric(vertical: 18, horizontal: 40),
       textColor: Colors.white,
+      disabledColor: Colors.grey[200],
       color: AppColors.primary,
       splashColor: AppColors.primaryAccent,
-      child: SizedBox(
-        width: double.infinity,
-        child: Text(
-          'Submit',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-            fontSize: 14,
-            fontFamily: 'Open Sans',
-            fontWeight: FontWeight.w300,
+      child: BlocListener<TaskBloc, TaskState>(
+        listener: (BuildContext context, TaskState state) {
+          print(state);
+          if (state is TaskInitial || state is TaskLoading) {
+            setState(() {
+              _isButtonDisabled = true;
+            });
+          } else if (state is TaskSubmitted) {
+            setState(() {
+              _isButtonDisabled = false;
+            });
+            Navigator.of(context).pop();
+          }
+        },
+        child: SizedBox(
+          width: double.infinity,
+          child: BlocBuilder<TaskBloc, TaskState>(
+            builder: (BuildContext context, TaskState state) {
+              if (state is TaskInitial || state is TaskSubmitted) {
+                return Text(
+                  'Submit',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(
+                    fontSize: 14,
+                    fontFamily: 'Open Sans',
+                    fontWeight: FontWeight.w300,
+                  ),
+                );
+              } else {
+                return Center(
+                  child: SpinKitThreeBounce(color: AppColors.primary, size: 14),
+                );
+              }
+            },
           ),
         ),
       ),

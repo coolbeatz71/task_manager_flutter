@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/helpers/utils.dart';
 
 class Task {
+  final String id;
   final String userId;
   final String title;
   final String note;
@@ -11,6 +12,7 @@ class Task {
   final bool isCompleted;
 
   Task({
+    this.id = '',
     this.userId,
     this.title,
     this.note,
@@ -31,10 +33,11 @@ class Task {
   }
 
   Task.fromSnapshot(DocumentSnapshot snap)
-      : userId = snap.data['userId'],
+      : id = snap.documentID,
+        userId = snap.data['userId'],
         title = snap.data['title'],
         note = snap.data['note'],
-        date = Utils.toDateTime(snap.data['date']),
+        date = Utils.toDate(snap.data['date']),
         time = Utils.toTime(snap.data['time']),
         isCompleted = snap.data['isCompleted'];
 }

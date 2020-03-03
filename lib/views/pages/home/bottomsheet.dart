@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/views/widgets/forms/task_form.dart';
 
@@ -63,7 +65,10 @@ class BottomSheetContainer extends StatelessWidget {
                   ],
                 ),
               ),
-              TaskForm(),
+              BlocProvider(
+                create: (context) => TaskBloc(),
+                child: TaskForm(),
+              ),
             ],
           ),
         ),
