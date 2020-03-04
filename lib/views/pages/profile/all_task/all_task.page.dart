@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/services/firestore.dart';
-import 'package:todo_app/views/pages/profile/all_task/add_task_fb.dart';
-import 'package:todo_app/views/pages/profile/all_task/day_task.dart';
-import 'package:todo_app/views/pages/profile/all_task/task_list.dart';
+import 'package:todo_app/views/widgets/add_task_fb.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/date_picker_timeline.dart';
+import 'package:todo_app/views/widgets/day_task.dart';
+import 'package:todo_app/views/widgets/task_list.dart';
 
 class AllTask extends StatefulWidget {
   final String title;
@@ -92,6 +92,7 @@ class _AllTaskState extends State<AllTask> {
                     height: MediaQuery.of(context).size.height * 0.69,
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TaskList(
+                      page: TaskPageStatus.all,
                       taskStream: taskStream,
                       pageStatus: pageStatus,
                     ),

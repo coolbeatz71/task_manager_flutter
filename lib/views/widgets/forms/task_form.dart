@@ -6,6 +6,7 @@ import 'package:todo_app/core/validation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
+import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({
@@ -106,7 +107,7 @@ class _TaskFormState extends State<TaskForm> {
             ),
             SizedBox(height: 15),
             TextFormField(
-              maxLines: 5,
+              maxLines: 3,
               maxLength: 100,
               controller: _noteCtrl,
               validator: (value) => Validate.getMsg('note', value),
@@ -122,6 +123,21 @@ class _TaskFormState extends State<TaskForm> {
           ],
         ),
       ),
+    );
+  }
+
+  void showToast(String message) {
+    FlutterFlexibleToast.showToast(
+      message: message,
+      toastLength: Toast.LENGTH_LONG,
+      toastGravity: ToastGravity.TOP,
+      icon: ICON.SUCCESS,
+      radius: 10,
+      elevation: 0,
+      imageSize: 30,
+      textColor: Colors.white,
+      backgroundColor: Color(0xFF00C853),
+      timeInSeconds: 2,
     );
   }
 
@@ -160,7 +176,6 @@ class _TaskFormState extends State<TaskForm> {
       splashColor: AppColors.primaryAccent,
       child: BlocListener<TaskBloc, TaskState>(
         listener: (BuildContext context, TaskState state) {
-          print(state);
           if (state is TaskInitial || state is TaskLoading) {
             setState(() {
               _isButtonDisabled = true;
@@ -169,6 +184,7 @@ class _TaskFormState extends State<TaskForm> {
             setState(() {
               _isButtonDisabled = false;
             });
+            showToast('Task successfully created');
             Navigator.of(context).pop();
           }
         },
@@ -188,7 +204,10 @@ class _TaskFormState extends State<TaskForm> {
                 );
               } else {
                 return Center(
-                  child: SpinKitThreeBounce(color: AppColors.primary, size: 14),
+                  child: SpinKitThreeBounce(
+                    color: AppColors.primary,
+                    size: 14,
+                  ),
                 );
               }
             },
