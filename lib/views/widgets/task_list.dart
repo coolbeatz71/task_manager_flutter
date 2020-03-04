@@ -11,13 +11,11 @@ import 'package:todo_app/views/widgets/todo_card/task_card.dart';
 class TaskList extends StatelessWidget {
   const TaskList({
     Key key,
-    @required this.page,
     @required this.taskStream,
     @required this.pageStatus,
   }) : super(key: key);
 
   final Stream taskStream;
-  final TaskPageStatus page;
   final TaskPageStatus pageStatus;
 
   @override
@@ -54,7 +52,7 @@ class TaskList extends StatelessWidget {
         }
 
         if (taskList.length == 0) {
-          switch (page) {
+          switch (pageStatus) {
             case TaskPageStatus.all:
               return Home();
               break;

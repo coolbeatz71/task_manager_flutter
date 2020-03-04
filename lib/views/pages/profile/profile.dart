@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:todo_app/helpers/colors.dart';
+import 'package:fancy_bottom_navigation/fancy_bottom_navigation.dart';
 import 'package:todo_app/views/pages/profile/active_task/active_task.dart';
 import 'package:todo_app/views/pages/profile/all_task/all_task.page.dart';
 import 'package:todo_app/views/pages/profile/completed_task/completed_task.dart';
@@ -15,50 +15,38 @@ class Profile extends StatefulWidget {
 class _ProfileState extends State<Profile> {
   static int _currentPage = 0;
   GlobalKey _bottomNavigationKey = GlobalKey();
-  PageController _pageController;
 
-  @override
-  void initState() {
-    super.initState();
-    _pageController = PageController(
-      initialPage: _currentPage,
-    );
+  _getPage(int position) {
+    switch (position) {
+      case 0:
+        return AllTask(title: 'All tasks');
+        break;
+      case 1:
+        return ActiveTask(title: 'Active tasks');
+        break;
+      default:
+        return CompletedTask(title: 'Completed tasks');
+        break;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       extendBody: true,
-      body: PageView(
-        controller: _pageController,
-        children: <Widget>[
-          AllTask(title: 'All tasks'),
-          ActiveTask(title: 'Active tasks'),
-          CompletedTask(title: 'Completed tasks'),
-        ],
-        onPageChanged: (int index) {
-          setState(() {
-            _currentPage = index;
-          });
-        },
-      ),
-      bottomNavigationBar: CurvedNavigationBar(
+      body: Center(child: _getPage(_currentPage)),
+      bottomNavigationBar: FancyBottomNavigation(
         key: _bottomNavigationKey,
-        height: 65,
-        animationDuration: Duration(milliseconds: 200),
-        index: _currentPage,
-        items: <Widget>[
-          TabIcon(icon: Icons.event_note),
-          TabIcon(icon: Icons.event_busy),
-          TabIcon(icon: Icons.event_available),
+        inactiveIconColor: AppColors.primary,
+        circleColor: AppColors.secondary,
+        tabs: [
+          TabData(iconData: Icons.event_note, title: "All"),
+          TabData(iconData: Icons.event_busy, title: "Active"),
+          TabData(iconData: Icons.event_available, title: "Completed")
         ],
-        color: Colors.grey[300],
-        buttonBackgroundColor: AppColors.secondary,
-        backgroundColor: Colors.white,
-        onTap: (int index) {
+        onTabChangedListener: (position) {
           setState(() {
-            _pageController.jumpToPage(index);
-            _currentPage = index;
+            _currentPage = position;
           });
         },
       ),
@@ -66,20 +54,37 @@ class _ProfileState extends State<Profile> {
   }
 }
 
-class TabIcon extends StatelessWidget {
-  final IconData icon;
+// FancyBottomNavigation(
+//     tabs: [
+//         TabData(iconData: Icons.home, title: "Home"),
+//         TabData(iconData: Icons.search, title: "Search"),
+//         TabData(iconData: Icons.shopping_cart, title: "Basket")
+//     ],
+//     onTabChangedListener: (position) {
+//         setState(() {
+//         currentPage = position;
+//         });
+//     },
+// )
 
-  const TabIcon({Key key, @required this.icon}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.all(5),
-      child: Align(
-        alignment: Alignment(0.0, 0.5),
-        child: Icon(icon, size: 25, color: AppColors.primary),
-      ),
-    );
-  }
-}
+// CurvedNavigationBar(
+//         key: _bottomNavigationKey,
+//         height: 65,
+//         animationDuration: Duration(milliseconds: 200),
+//         index: _currentPage,
+//         items: <Widget>[
+//           TabIcon(icon: Icons.event_note),
+//           TabIcon(icon: Icons.event_busy),
+//           TabIcon(icon: Icons.event_available),
+//         ],
+//         color: Colors.grey[300],
+//         buttonBackgroundColor: AppColors.secondary,
+//         backgroundColor: Colors.white,
+//         onTap: (int index) {
+//           setState(() {
+//             _pageController.jumpToPage(index);
+//             _currentPage = index;
+//           });
+//         },
+//       ),
+//     );

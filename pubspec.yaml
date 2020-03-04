@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
 
   intl:
+  fancy_bottom_navigation: ^0.3.2
   flutter_flexible_toast: ^0.1.4
   cloud_firestore: ^0.13.3
   font_awesome_flutter: ^8.7.0

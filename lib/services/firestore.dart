@@ -20,10 +20,10 @@ class FirestoreService {
         );
   }
 
-  Stream<List<Task>> getCompletedTask(String userId) {
+  Stream<List<Task>> getTaskByStatus(String userId, {bool isCompleted = true}) {
     return collection
         .where("userId", isEqualTo: userId)
-        .where("isCompleted", isEqualTo: true)
+        .where("isCompleted", isEqualTo: isCompleted)
         .snapshots()
         .map(
           (snapshot) => snapshot.documents.map(
