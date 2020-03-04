@@ -92,7 +92,6 @@ class _AllTaskState extends State<AllTask> {
                     height: MediaQuery.of(context).size.height * 0.69,
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TaskList(
-                      page: TaskPageStatus.all,
                       taskStream: taskStream,
                       pageStatus: pageStatus,
                     ),

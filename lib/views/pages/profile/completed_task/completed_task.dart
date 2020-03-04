@@ -23,7 +23,7 @@ class _AllTaskState extends State<CompletedTask> {
 
   @override
   Widget build(BuildContext context) {
-    Stream taskStream = FirestoreService().getCompletedTask(
+    Stream taskStream = FirestoreService().getTaskByStatus(
       'c9ad90ca-7071-41c4-bb42-7945ea330a3a',
     );
 
@@ -90,7 +90,6 @@ class _AllTaskState extends State<CompletedTask> {
                     height: MediaQuery.of(context).size.height * 0.69,
                     padding: const EdgeInsets.only(top: 8.0),
                     child: TaskList(
-                      page: TaskPageStatus.completed,
                       taskStream: taskStream,
                       pageStatus: pageStatus,
                     ),

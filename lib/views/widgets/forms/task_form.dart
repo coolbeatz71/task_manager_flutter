@@ -136,7 +136,7 @@ class _TaskFormState extends State<TaskForm> {
       elevation: 0,
       imageSize: 30,
       textColor: Colors.white,
-      backgroundColor: Color(0xFF00C853),
+      backgroundColor: AppColors.greenAccent,
       timeInSeconds: 2,
     );
   }
