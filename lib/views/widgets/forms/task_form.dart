@@ -107,7 +107,7 @@ class _TaskFormState extends State<TaskForm> {
             ),
             SizedBox(height: 15),
             TextFormField(
-              maxLines: 5,
+              maxLines: 3,
               maxLength: 100,
               controller: _noteCtrl,
               validator: (value) => Validate.getMsg('note', value),

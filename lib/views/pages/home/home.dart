@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/views/pages/home/btn_create_task.dart';
+import 'package:todo_app/views/widgets/illustration.dart';
 
 class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
@@ -21,11 +20,9 @@ class Home extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Illustration(),
+            Illustration(image: 'assets/images/undraw_ideas.svg'),
             TextGetStarted(),
-            SizedBox(
-              height: 40,
-            ),
+            SizedBox(height: 40),
             BtnCreateTask(onPressed: showCreateTaskModal),
           ],
         ),
@@ -50,27 +47,6 @@ class TextGetStarted extends StatelessWidget {
         fontSize: 20,
         fontFamily: 'Open Sans',
         fontWeight: FontWeight.w300,
-      ),
-    );
-  }
-}
-
-class Illustration extends StatelessWidget {
-  const Illustration({
-    Key key,
-  }) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox.fromSize(
-      child: SvgPicture.asset(
-        'assets/images/undraw_ideas.svg',
-        placeholderBuilder: (context) => SpinKitThreeBounce(
-          color: AppColors.primary,
-          size: 30,
-        ),
-        width: 300,
-        height: 420,
       ),
     );
   }

@@ -20,5 +20,19 @@ class FirestoreService {
         );
   }
 
+  Stream<List<Task>> getCompletedTask(String userId) {
+    return collection
+        .where("userId", isEqualTo: userId)
+        .where("isCompleted", isEqualTo: true)
+        .snapshots()
+        .map(
+          (snapshot) => snapshot.documents.map(
+            (doc) {
+              return Task.fromSnapshot(doc);
+            },
+          ).toList(),
+        );
+  }
+
   Future<void> createTask(Task task) async => collection.add(task.toDocument());
 }

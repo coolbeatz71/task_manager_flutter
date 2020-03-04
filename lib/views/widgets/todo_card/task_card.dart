@@ -233,7 +233,7 @@ class TaskCardColor {
             : [AppColors.lightBlue, AppColors.primary];
         break;
       case TaskPageStatus.completed:
-        return [Colors.black45, Colors.white];
+        return [Color(0xFFEBEBE4), Color(0xFFEBEBE4)];
         break;
       default:
         return [Colors.white, AppColors.primary];

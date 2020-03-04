@@ -5,16 +5,19 @@ import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/views/pages/home/home.dart';
+import 'package:todo_app/views/widgets/illustration.dart';
 import 'package:todo_app/views/widgets/todo_card/task_card.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({
     Key key,
+    @required this.page,
     @required this.taskStream,
     @required this.pageStatus,
   }) : super(key: key);
 
   final Stream taskStream;
+  final TaskPageStatus page;
   final TaskPageStatus pageStatus;
 
   @override
@@ -50,7 +53,38 @@ class TaskList extends StatelessWidget {
           );
         }
 
-        if (taskList.length == 0) return Home();
+        if (taskList.length == 0) {
+          switch (page) {
+            case TaskPageStatus.all:
+              return Home();
+              break;
+
+            default:
+              return Center(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Illustration(
+                      image: 'assets/images/undraw_no_data.svg',
+                      width: 80,
+                      height: 180,
+                    ),
+                    Text(
+                      'No task found',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        height: 1.4,
+                        fontSize: 20,
+                        fontFamily: 'Open Sans',
+                        fontWeight: FontWeight.w300,
+                      ),
+                    )
+                  ],
+                ),
+              );
+          }
+        }
 
         return ListView.builder(
           itemCount: taskList.length,
