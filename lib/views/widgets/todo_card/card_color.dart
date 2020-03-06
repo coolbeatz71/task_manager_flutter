@@ -13,13 +13,13 @@ class CardColor {
       case TaskPageStatus.all:
         return isCompleted
             ? [AppColors.disabled, Colors.black45]
-            : [AppColors.secondary, AppColors.primary];
+            : [AppColors.primaryAccent, AppColors.primaryLight];
         break;
       case TaskPageStatus.completed:
         return [AppColors.disabled, AppColors.disabled];
         break;
       default:
-        return [Colors.white, AppColors.primary];
+        return [AppColors.lightGrey, AppColors.primary];
         break;
     }
   }

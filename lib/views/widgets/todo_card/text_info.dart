@@ -8,6 +8,7 @@ class TextTaskInfo extends StatelessWidget {
   final String title;
   final String note;
   final bool isCompleted;
+  final DateTime date;
 
   const TextTaskInfo({
     Key key,
@@ -15,26 +16,30 @@ class TextTaskInfo extends StatelessWidget {
     @required this.isCompleted,
     @required this.title,
     @required this.note,
+    @required this.date,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     CardColor taskCardColors = CardColor(page, isCompleted);
+    String dateFormat = DateFormat('yyyy MMMM dd').format(date);
 
     return Container(
+      padding: const EdgeInsets.symmetric(vertical: 6.0),
       child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(top: 20.0, bottom: 8.0),
+            padding: const EdgeInsets.only(bottom: 8.0),
             child: Text(
               toBeginningOfSentenceCase(title),
               overflow: TextOverflow.ellipsis,
               style: TextStyle(
-                fontSize: 15,
+                fontSize: 16,
                 fontFamily: 'Open Sans',
                 color: taskCardColors.texts,
-                fontWeight: FontWeight.w800,
+                fontWeight: FontWeight.w900,
               ),
             ),
           ),
@@ -44,6 +49,18 @@ class TextTaskInfo extends StatelessWidget {
               textAlign: TextAlign.start,
               style: TextStyle(
                 fontSize: 12,
+                fontFamily: 'Open Sans',
+                color: taskCardColors.texts,
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+          ),
+          Container(
+            child: Text(
+              dateFormat,
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                fontSize: 10,
                 fontFamily: 'Open Sans',
                 color: taskCardColors.texts,
                 fontWeight: FontWeight.w300,

@@ -27,9 +27,11 @@ class _TaskCardState extends State<TaskCard> {
 
   @override
   Widget build(BuildContext context) {
-    /// get the task isCompleted field
+    /// get the task fields
+    String taskId = widget.task.id;
     bool isCompleted = widget.task.isCompleted;
     TimeOfDay time = widget.task.time;
+    DateTime date = widget.task.date;
 
     String hour = Utils.getHour(time);
     String minute = Utils.getMinutes(time);
@@ -42,25 +44,40 @@ class _TaskCardState extends State<TaskCard> {
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
-            Switch(
-              value: isCompleted,
-              onChanged: (value) {
-                setState(() {
-                  isSwitched = value;
-                });
-              },
-              activeColor: AppColors.secondary,
+            Theme(
+              data: new ThemeData(accentColor: Colors.transparent),
+              child: FloatingActionButton(
+                elevation: 0,
+                mini: true,
+                onPressed: () {
+                  print(taskId);
+                },
+                child: isCompleted
+                    ? FaIcon(
+                        FontAwesomeIcons.solidCheckCircle,
+                        size: 18,
+                        color: AppColors.greenAccent,
+                      )
+                    : FaIcon(
+                        FontAwesomeIcons.toggleOn,
+                        size: 18,
+                        color: Colors.grey[600],
+                      ),
+              ),
             ),
             Theme(
               data: new ThemeData(accentColor: Colors.transparent),
               child: FloatingActionButton(
                 elevation: 0,
                 mini: true,
-                onPressed: () {},
+                onPressed: () {
+                  print(taskId);
+                },
                 child: FaIcon(
                   FontAwesomeIcons.solidTrashAlt,
-                  size: 22,
+                  size: 18,
                   color: taskCardColors.texts,
                 ),
               ),
@@ -90,9 +107,6 @@ class _TaskCardState extends State<TaskCard> {
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(_borderRadius),
               gradient: buildLinearGradient(widget.page, isCompleted),
-              border: (widget.page == TaskPageStatus.active)
-                  ? Border.all(color: AppColors.secondary, width: 1.5)
-                  : null,
             ),
           ),
           Positioned(
@@ -133,6 +147,7 @@ class _TaskCardState extends State<TaskCard> {
                     isCompleted: isCompleted,
                     title: widget.task.title,
                     note: widget.task.note,
+                    date: date,
                   ),
                 ),
                 Expanded(

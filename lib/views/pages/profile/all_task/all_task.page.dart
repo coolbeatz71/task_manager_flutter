@@ -67,37 +67,39 @@ class _AllTaskState extends State<AllTask> {
               maintainAnimation: true,
               maintainState: true,
               visible: isFilterSelected,
-              child: DatePickerTimeline(
-                _selectedValue,
-                onDateChange: (date) {
-                  setState(() {
-                    _selectedValue = date;
-                  });
-                },
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(5.0),
               child: Column(
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      DayTasksText(),
-                      AddTaskFloatingButton(),
-                    ],
+                  DatePickerTimeline(
+                    _selectedValue,
+                    onDateChange: (date) {
+                      setState(() {
+                        _selectedValue = date;
+                      });
+                    },
                   ),
                   Divider(color: AppColors.darkGrey),
-                  Container(
-                    height: MediaQuery.of(context).size.height * 0.69,
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: TaskList(
-                      taskStream: taskStream,
-                      pageStatus: pageStatus,
-                    ),
-                  ),
                 ],
               ),
+            ),
+            Column(
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    DayTasksText(),
+                    AddTaskFloatingButton(),
+                  ],
+                ),
+                Container(
+                  padding: EdgeInsets.only(top: 6.0),
+                  height: MediaQuery.of(context).size.height -
+                      (4 * kBottomNavigationBarHeight),
+                  child: TaskList(
+                    taskStream: taskStream,
+                    pageStatus: pageStatus,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
