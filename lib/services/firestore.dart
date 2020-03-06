@@ -35,4 +35,6 @@ class FirestoreService {
   }
 
   Future<void> createTask(Task task) async => collection.add(task.toDocument());
+
+  Future<void> deleteTask(String id) async => collection.document(id).delete();
 }

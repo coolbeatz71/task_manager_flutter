@@ -31,3 +31,8 @@ class TaskNotLoaded extends TaskState {
   @override
   List<Object> get props => [];
 }
+
+class TaskDeleted extends TaskState {
+  @override
+  List<Object> get props => [];
+}
