@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:todo_app/helpers/colors.dart';
+import 'package:ff_navigation_bar/ff_navigation_bar.dart';
 import 'package:todo_app/views/pages/profile/active_task/active_task.dart';
 import 'package:todo_app/views/pages/profile/all_task/all_task.page.dart';
 import 'package:todo_app/views/pages/profile/completed_task/completed_task.dart';
@@ -25,10 +25,15 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+  final List<FFNavigationBarItem> items = [
+    FFNavigationBarItem(iconData: Icons.event_note, label: "All"),
+    FFNavigationBarItem(iconData: Icons.event_busy, label: "Active"),
+    FFNavigationBarItem(iconData: Icons.event_available, label: "Completed"),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBody: true,
       body: PageView(
         controller: _pageController,
         children: <Widget>[
@@ -42,43 +47,22 @@ class _ProfileState extends State<Profile> {
           });
         },
       ),
-      bottomNavigationBar: CurvedNavigationBar(
+      bottomNavigationBar: FFNavigationBar(
         key: _bottomNavigationKey,
-        height: 65,
-        animationDuration: Duration(milliseconds: 200),
-        index: _currentPage,
-        items: <Widget>[
-          TabIcon(icon: Icons.event_note),
-          TabIcon(icon: Icons.event_busy),
-          TabIcon(icon: Icons.event_available),
-        ],
-        color: Colors.grey[300],
-        buttonBackgroundColor: AppColors.secondary,
-        backgroundColor: Colors.white,
-        onTap: (int index) {
+        selectedIndex: _currentPage,
+        theme: FFNavigationBarTheme(
+          selectedItemIconColor: AppColors.primary,
+          selectedItemBackgroundColor: AppColors.secondary,
+          selectedItemLabelColor: AppColors.secondary,
+        ),
+        items: items,
+        onSelectTab: (int index) {
+          print(index);
           setState(() {
             _pageController.jumpToPage(index);
             _currentPage = index;
           });
         },
-      ),
-    );
-  }
-}
-
-class TabIcon extends StatelessWidget {
-  final IconData icon;
-
-  const TabIcon({Key key, @required this.icon}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(5),
-      margin: EdgeInsets.all(5),
-      child: Align(
-        alignment: Alignment(0.0, 0.5),
-        child: Icon(icon, size: 25, color: AppColors.primary),
       ),
     );
   }
