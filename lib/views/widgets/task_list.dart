@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/core/dialog.dart';
+import 'package:todo_app/helpers/animation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
@@ -93,9 +94,12 @@ class TaskList extends StatelessWidget {
               padding: const EdgeInsets.only(bottom: 12.0),
               child: BlocProvider(
                 create: (context) => TaskBloc(),
-                child: TaskCard(
-                  task: taskList[index],
-                  page: pageStatus,
+                child: FadeAnimation(
+                  0.4,
+                  child: TaskCard(
+                    task: taskList[index],
+                    page: pageStatus,
+                  ),
                 ),
               ),
             );

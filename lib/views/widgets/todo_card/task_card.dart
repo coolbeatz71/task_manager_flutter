@@ -46,74 +46,108 @@ class _TaskCardState extends State<TaskCard> {
 
     Widget buildTaskAction(bool isCompleted) {
       String dialogTitle = 'Confirm';
-      String dialogMsg = 'Are you sure you want to delete this task?';
-      String completeMsg = 'Are you sure to mark this task as complete';
-      String unCompleteMsg = 'Are you sure to mark this task as uncomplete';
+      String dialogMsg = 'Do you want to delete this task?';
+      String completeMsg = 'Do you want to mark this task as completed';
+      String unCompleteMsg = 'Do you want to mark this task as uncompleted';
 
-      return Container(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.end,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: <Widget>[
-            Theme(
-              data: ThemeData(accentColor: Colors.transparent),
-              child: FloatingActionButton(
-                elevation: 0,
-                mini: true,
-                onPressed: () {},
-                child: isCompleted
-                    ? FaIcon(
-                        FontAwesomeIcons.solidCheckCircle,
-                        color: AppColors.greenAccent,
-                        size: 18,
-                      )
-                    : FaIcon(
-                        FontAwesomeIcons.toggleOn,
-                        color: Colors.grey[500],
-                        size: 18,
-                      ),
-              ),
-            ),
-            Theme(
-              data: ThemeData(accentColor: Colors.transparent),
-              child: FloatingActionButton(
-                elevation: 0,
-                mini: true,
-                onPressed: () {
-                  AppFlushBar(
-                    onPressed: () {
-                      BlocProvider.of<TaskBloc>(context).add(
-                        DeleteTaskEvent(taskId),
-                      );
-                      Navigator.of(context).pop();
-                    },
-                    context: context,
-                    title: dialogTitle,
-                    message: dialogMsg,
-                    actionText: 'Delete',
-                  ).show();
-                },
-                child: BlocBuilder<TaskBloc, TaskState>(
-                  builder: (BuildContext context, TaskState state) {
-                    if (state is TaskLoading) {
-                      return Center(
-                        child: SpinKitThreeBounce(
-                          color: Colors.white,
-                          size: 14,
-                        ),
-                      );
-                    }
-
-                    return FaIcon(
-                      FontAwesomeIcons.solidTrashAlt,
-                      size: 18,
-                      color: taskCardColors.texts,
-                    );
+      return BlocListener<TaskBloc, TaskState>(
+        listener: (BuildContext context, TaskState state) {
+          if (state is TaskCompleted) {
+            Utils.showToast(message: 'Task successfully updated');
+          }
+        },
+        child: Container(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: <Widget>[
+              Theme(
+                data: ThemeData(accentColor: Colors.transparent),
+                child: FloatingActionButton(
+                  elevation: 0,
+                  mini: true,
+                  onPressed: () {
+                    AppFlushBar(
+                      onPressed: () {
+                        BlocProvider.of<TaskBloc>(context).add(
+                          CompleteTaskEvent(taskId, !isCompleted),
+                        );
+                      },
+                      padding: 16.2,
+                      context: context,
+                      title: dialogTitle,
+                      message: isCompleted ? unCompleteMsg : completeMsg,
+                      actionText: isCompleted ? 'Uncomplete' : 'Complete',
+                    ).show();
                   },
+                  child: BlocBuilder<TaskBloc, TaskState>(
+                    builder: (BuildContext context, TaskState state) {
+                      if (state is TaskCompleting) {
+                        return Center(
+                          child: SpinKitThreeBounce(
+                            color: Colors.white,
+                            size: 14,
+                          ),
+                        );
+                      }
+
+                      return isCompleted
+                          ? FaIcon(
+                              FontAwesomeIcons.solidCheckCircle,
+                              color: AppColors.greenAccent,
+                              size: 18,
+                            )
+                          : FaIcon(
+                              FontAwesomeIcons.toggleOn,
+                              color: Colors.grey[500],
+                              size: 18,
+                            );
+                    },
+                  ),
                 ),
               ),
-            )
-          ],
+              Theme(
+                data: ThemeData(accentColor: Colors.transparent),
+                child: FloatingActionButton(
+                  elevation: 0,
+                  mini: true,
+                  onPressed: () {
+                    AppFlushBar(
+                      onPressed: () {
+                        BlocProvider.of<TaskBloc>(context).add(
+                          DeleteTaskEvent(taskId),
+                        );
+                        Navigator.of(context).pop();
+                      },
+                      padding: 16.2,
+                      context: context,
+                      title: dialogTitle,
+                      message: dialogMsg,
+                      actionText: 'Delete',
+                    ).show();
+                  },
+                  child: BlocBuilder<TaskBloc, TaskState>(
+                    builder: (BuildContext context, TaskState state) {
+                      if (state is TaskDeleting) {
+                        return Center(
+                          child: SpinKitThreeBounce(
+                            color: Colors.white,
+                            size: 14,
+                          ),
+                        );
+                      }
+
+                      return FaIcon(
+                        FontAwesomeIcons.solidTrashAlt,
+                        color: taskCardColors.texts,
+                        size: 18,
+                      );
+                    },
+                  ),
+                ),
+              )
+            ],
+          ),
         ),
       );
     }
@@ -121,9 +155,9 @@ class _TaskCardState extends State<TaskCard> {
     LinearGradient buildLinearGradient(TaskPageStatus page, bool taskStatus) {
       if (page == TaskPageStatus.all && !taskStatus) {
         return LinearGradient(
-          colors: [colors[0], colors[1]],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
+          colors: [colors[0], colors[1]],
         );
       }
 
@@ -141,13 +175,13 @@ class _TaskCardState extends State<TaskCard> {
             ),
           ),
           Positioned(
+            top: 0,
             right: 0,
             bottom: 0,
-            top: 0,
             child: Visibility(
               maintainSize: false,
-              maintainAnimation: true,
               maintainState: true,
+              maintainAnimation: true,
               visible: widget.page == TaskPageStatus.all && !isCompleted,
               child: CustomPaint(
                 size: Size(82, _height),

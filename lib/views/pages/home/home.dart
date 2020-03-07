@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/helpers/animation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/views/pages/home/btn_create_task.dart';
@@ -14,17 +15,20 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.all(30.0),
-        color: AppColors.secondary,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Illustration(image: 'assets/images/undraw_ideas.svg'),
-            TextGetStarted(),
-            SizedBox(height: 40),
-            BtnCreateTask(onPressed: showCreateTaskModal),
-          ],
+      body: FadeAnimation(
+        0.4,
+        child: Container(
+          padding: EdgeInsets.all(30.0),
+          color: AppColors.secondary,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Illustration(image: 'assets/images/undraw_ideas.svg'),
+              TextGetStarted(),
+              SizedBox(height: 40),
+              BtnCreateTask(onPressed: showCreateTaskModal),
+            ],
+          ),
         ),
       ),
     );
