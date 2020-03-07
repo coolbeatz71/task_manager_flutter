@@ -115,7 +115,7 @@ class Utils {
       icon: ICON.SUCCESS,
       radius: 10,
       elevation: 0,
-      imageSize: 30,
+      imageSize: 16,
       textColor: Colors.white,
       backgroundColor: success ? AppColors.greenAccent : Colors.red,
       timeInSeconds: 2,
