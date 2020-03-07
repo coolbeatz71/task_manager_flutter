@@ -9,7 +9,7 @@ import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/views/pages/home/home.dart';
 import 'package:todo_app/views/widgets/illustration.dart';
-import 'package:todo_app/views/widgets/todo_card/task_card.dart';
+import 'package:todo_app/views/widgets/task_card/task_card.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({

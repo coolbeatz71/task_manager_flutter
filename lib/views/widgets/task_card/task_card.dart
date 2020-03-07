@@ -8,10 +8,10 @@ import 'package:todo_app/core/flushbar.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
-import 'package:todo_app/views/widgets/todo_card/card_color.dart';
-import 'package:todo_app/views/widgets/todo_card/custom_painter.dart';
-import 'package:todo_app/views/widgets/todo_card/text_info.dart';
-import 'package:todo_app/views/widgets/todo_card/time_board.dart';
+import 'package:todo_app/views/widgets/task_card/card_color.dart';
+import 'package:todo_app/views/widgets/task_card/custom_painter.dart';
+import 'package:todo_app/views/widgets/task_card/text_info.dart';
+import 'package:todo_app/views/widgets/task_card/time_board.dart';
 
 class TaskCard extends StatefulWidget {
   final page;
@@ -170,6 +170,9 @@ class _TaskCardState extends State<TaskCard> {
           Container(
             height: _height,
             decoration: BoxDecoration(
+              border: widget.page == TaskPageStatus.active
+                  ? Border.all(width: 0.5, color: AppColors.secondary)
+                  : null,
               borderRadius: BorderRadius.circular(_borderRadius),
               gradient: buildLinearGradient(widget.page, isCompleted),
             ),
