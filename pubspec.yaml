@@ -10,6 +10,7 @@ dependencies:
     sdk: flutter
 
   intl:
+  flushbar: ^1.9.1
   ff_navigation_bar: ^0.1.4
   flutter_flexible_toast: ^0.1.4
   cloud_firestore: ^0.13.3

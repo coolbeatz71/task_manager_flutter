@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:font_awesome_flutter/fa_icon.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:todo_app/bloc/task_bloc.dart';
+import 'package:todo_app/core/flushbar.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
@@ -40,48 +44,75 @@ class _TaskCardState extends State<TaskCard> {
     CardColor taskCardColors = CardColor(widget.page, isCompleted);
     List<Color> colors = taskCardColors.background;
 
-    Widget buildTaskAction(isCompleted) {
+    Widget buildTaskAction(bool isCompleted) {
+      String dialogTitle = 'Confirm';
+      String dialogMsg = 'Are you sure you want to delete this task?';
+      String completeMsg = 'Are you sure to mark this task as complete';
+      String unCompleteMsg = 'Are you sure to mark this task as uncomplete';
+
       return Container(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.end,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Theme(
-              data: new ThemeData(accentColor: Colors.transparent),
+              data: ThemeData(accentColor: Colors.transparent),
               child: FloatingActionButton(
                 elevation: 0,
                 mini: true,
-                onPressed: () {
-                  print(taskId);
-                },
+                onPressed: () {},
                 child: isCompleted
                     ? FaIcon(
                         FontAwesomeIcons.solidCheckCircle,
-                        size: 18,
                         color: AppColors.greenAccent,
+                        size: 18,
                       )
                     : FaIcon(
                         FontAwesomeIcons.toggleOn,
+                        color: Colors.grey[500],
                         size: 18,
-                        color: Colors.grey[600],
                       ),
               ),
             ),
             Theme(
-              data: new ThemeData(accentColor: Colors.transparent),
+              data: ThemeData(accentColor: Colors.transparent),
               child: FloatingActionButton(
                 elevation: 0,
                 mini: true,
                 onPressed: () {
-                  print(taskId);
+                  AppFlushBar(
+                    onPressed: () {
+                      BlocProvider.of<TaskBloc>(context).add(
+                        DeleteTaskEvent(taskId),
+                      );
+                      Navigator.of(context).pop();
+                    },
+                    context: context,
+                    title: dialogTitle,
+                    message: dialogMsg,
+                    actionText: 'Delete',
+                  ).show();
                 },
-                child: FaIcon(
-                  FontAwesomeIcons.solidTrashAlt,
-                  size: 18,
-                  color: taskCardColors.texts,
+                child: BlocBuilder<TaskBloc, TaskState>(
+                  builder: (BuildContext context, TaskState state) {
+                    if (state is TaskLoading) {
+                      return Center(
+                        child: SpinKitThreeBounce(
+                          color: Colors.white,
+                          size: 14,
+                        ),
+                      );
+                    }
+
+                    return FaIcon(
+                      FontAwesomeIcons.solidTrashAlt,
+                      size: 18,
+                      color: taskCardColors.texts,
+                    );
+                  },
                 ),
               ),
-            ),
+            )
           ],
         ),
       );

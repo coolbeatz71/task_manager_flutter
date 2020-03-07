@@ -14,6 +14,16 @@ class TaskLoading extends TaskState {
   List<Object> get props => [];
 }
 
+class TaskCompleting extends TaskState {
+  @override
+  List<Object> get props => [];
+}
+
+class TaskDeleting extends TaskState {
+  @override
+  List<Object> get props => [];
+}
+
 class TaskSubmitted extends TaskState {
   @override
   List<Object> get props => [];
@@ -28,6 +38,11 @@ class TaskLoaded extends TaskState {
 }
 
 class TaskNotLoaded extends TaskState {
+  @override
+  List<Object> get props => [];
+}
+
+class TaskCompleted extends TaskState {
   @override
   List<Object> get props => [];
 }

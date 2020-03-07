@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/core/dialog.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
@@ -89,9 +91,12 @@ class TaskList extends StatelessWidget {
           itemBuilder: (context, index) {
             return Padding(
               padding: const EdgeInsets.only(bottom: 12.0),
-              child: TaskCard(
-                task: taskList[index],
-                page: pageStatus,
+              child: BlocProvider(
+                create: (context) => TaskBloc(),
+                child: TaskCard(
+                  task: taskList[index],
+                  page: pageStatus,
+                ),
               ),
             );
           },

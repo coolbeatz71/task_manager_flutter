@@ -59,7 +59,7 @@ class _AllTaskState extends State<CompletedTask> {
         ],
       ),
       body: Container(
-        padding: EdgeInsets.all(5.0),
+        padding: EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
             Visibility(

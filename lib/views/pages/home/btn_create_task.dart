@@ -18,7 +18,6 @@ class BtnCreateTask extends StatelessWidget {
       padding: EdgeInsets.symmetric(vertical: 18, horizontal: 40),
       textColor: Colors.white,
       color: AppColors.primary,
-      splashColor: AppColors.primaryAccent,
       icon: FaIcon(
         FontAwesomeIcons.plus,
         size: 14,
