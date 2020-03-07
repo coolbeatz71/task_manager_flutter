@@ -52,12 +52,12 @@ class _ProfileState extends State<Profile> {
         selectedIndex: _currentPage,
         theme: FFNavigationBarTheme(
           selectedItemIconColor: AppColors.primary,
+          selectedItemBorderColor: AppColors.secondary,
           selectedItemBackgroundColor: AppColors.secondary,
           selectedItemLabelColor: AppColors.secondary,
         ),
         items: items,
         onSelectTab: (int index) {
-          print(index);
           setState(() {
             _pageController.jumpToPage(index);
             _currentPage = index;

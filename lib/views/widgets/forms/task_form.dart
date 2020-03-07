@@ -6,7 +6,6 @@ import 'package:todo_app/core/validation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
-import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 
 class TaskForm extends StatefulWidget {
   const TaskForm({
@@ -126,21 +125,6 @@ class _TaskFormState extends State<TaskForm> {
     );
   }
 
-  void showToast(String message) {
-    FlutterFlexibleToast.showToast(
-      message: message,
-      toastLength: Toast.LENGTH_LONG,
-      toastGravity: ToastGravity.TOP,
-      icon: ICON.SUCCESS,
-      radius: 10,
-      elevation: 0,
-      imageSize: 30,
-      textColor: Colors.white,
-      backgroundColor: AppColors.greenAccent,
-      timeInSeconds: 2,
-    );
-  }
-
   FlatButton buildFlatButton(BuildContext context) {
     return FlatButton(
       onPressed: _isButtonDisabled
@@ -173,7 +157,6 @@ class _TaskFormState extends State<TaskForm> {
       textColor: Colors.white,
       disabledColor: Colors.grey[200],
       color: AppColors.primary,
-      splashColor: AppColors.primaryAccent,
       child: BlocListener<TaskBloc, TaskState>(
         listener: (BuildContext context, TaskState state) {
           if (state is TaskInitial || state is TaskLoading) {
@@ -184,7 +167,7 @@ class _TaskFormState extends State<TaskForm> {
             setState(() {
               _isButtonDisabled = false;
             });
-            showToast('Task successfully created');
+            Utils.showToast(message: 'Task successfully created');
             Navigator.of(context).pop();
           }
         },

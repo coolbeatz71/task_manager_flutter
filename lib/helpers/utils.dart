@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 import 'package:intl/intl.dart';
+import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/views/pages/home/bottomsheet.dart';
 
 enum TaskPageStatus {
@@ -103,5 +105,20 @@ class Utils {
     }
 
     return "";
+  }
+
+  static void showToast({@required String message, bool success = true}) {
+    FlutterFlexibleToast.showToast(
+      message: message,
+      toastLength: Toast.LENGTH_LONG,
+      toastGravity: ToastGravity.TOP,
+      icon: ICON.SUCCESS,
+      radius: 10,
+      elevation: 0,
+      imageSize: 30,
+      textColor: Colors.white,
+      backgroundColor: success ? AppColors.greenAccent : Colors.red,
+      timeInSeconds: 2,
+    );
   }
 }

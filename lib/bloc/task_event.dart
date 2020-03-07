@@ -21,3 +21,13 @@ class DeleteTaskEvent extends TaskEvent {
   @override
   List<Object> get props => [taskId];
 }
+
+class CompleteTaskEvent extends TaskEvent {
+  final String taskId;
+  final bool isCompleted;
+
+  CompleteTaskEvent(this.taskId, this.isCompleted);
+
+  @override
+  List<Object> get props => [taskId];
+}

@@ -7,16 +7,16 @@ class TextTaskInfo extends StatelessWidget {
   final TaskPageStatus page;
   final String title;
   final String note;
-  final bool isCompleted;
   final DateTime date;
+  final bool isCompleted;
 
   const TextTaskInfo({
     Key key,
     @required this.page,
-    @required this.isCompleted,
     @required this.title,
     @required this.note,
     @required this.date,
+    @required this.isCompleted,
   }) : super(key: key);
 
   @override
@@ -25,13 +25,13 @@ class TextTaskInfo extends StatelessWidget {
     String dateFormat = DateFormat('yyyy MMMM dd').format(date);
 
     return Container(
-      padding: const EdgeInsets.symmetric(vertical: 6.0),
+      padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Container(
-            padding: const EdgeInsets.only(bottom: 8.0),
+            padding: EdgeInsets.only(bottom: 2.0),
             child: Text(
               toBeginningOfSentenceCase(title),
               overflow: TextOverflow.ellipsis,
@@ -46,7 +46,7 @@ class TextTaskInfo extends StatelessWidget {
           Container(
             child: Text(
               toBeginningOfSentenceCase(note),
-              textAlign: TextAlign.start,
+              textAlign: TextAlign.justify,
               style: TextStyle(
                 fontSize: 12,
                 fontFamily: 'Open Sans',
@@ -56,6 +56,7 @@ class TextTaskInfo extends StatelessWidget {
             ),
           ),
           Container(
+            padding: EdgeInsets.only(top: 4.0),
             child: Text(
               dateFormat,
               textAlign: TextAlign.start,

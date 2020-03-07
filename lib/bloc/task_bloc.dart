@@ -16,8 +16,13 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
 
   @override
   Stream<TaskState> mapEventToState(TaskEvent event) async* {
-    if (event is CreateTaskEvent) yield* _mapCreateTask(event);
-    if (event is DeleteTaskEvent) yield* _mapDeletTask(event);
+    if (event is CreateTaskEvent) {
+      yield* _mapCreateTask(event);
+    } else if (event is DeleteTaskEvent) {
+      yield* _mapDeleteTask(event);
+    } else if (event is CompleteTaskEvent) {
+      yield* _mapCompleteTask(event);
+    }
   }
 
   Stream<TaskState> _mapCreateTask(CreateTaskEvent event) async* {
@@ -26,9 +31,14 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     yield TaskSubmitted();
   }
 
-  Stream<TaskState> _mapDeletTask(DeleteTaskEvent event) async* {
-    yield TaskLoading();
+  Stream<TaskState> _mapDeleteTask(DeleteTaskEvent event) async* {
+    yield TaskDeleting();
     await _firestore.deleteTask(event.taskId);
-    yield TaskDeleted();
+  }
+
+  Stream<TaskState> _mapCompleteTask(CompleteTaskEvent event) async* {
+    yield TaskCompleting();
+    await _firestore.completeTask(event.taskId, event.isCompleted);
+    yield TaskCompleted();
   }
 }
