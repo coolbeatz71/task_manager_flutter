@@ -48,6 +48,7 @@ class BottomSheetContainer extends StatelessWidget {
                         child: Theme(
                           data: new ThemeData(accentColor: Colors.transparent),
                           child: FloatingActionButton(
+                            heroTag: key,
                             elevation: 0,
                             mini: true,
                             onPressed: () {

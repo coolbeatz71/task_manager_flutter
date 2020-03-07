@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:todo_app/routes/router.gr.dart';
 import 'package:todo_app/services/auth_key.dart';
-import 'package:todo_app/views/pages/wrapper.dart';
 
 void main() => runApp(MyApp());
 
@@ -14,8 +14,10 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         canvasColor: Colors.transparent,
       ),
-      home: Wrapper(),
       debugShowCheckedModeBanner: false,
+      initialRoute: Router.wrapperPage,
+      onGenerateRoute: Router.onGenerateRoute,
+      navigatorKey: Router.navigator.key,
     );
   }
 }

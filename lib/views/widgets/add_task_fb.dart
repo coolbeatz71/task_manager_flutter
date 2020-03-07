@@ -16,6 +16,7 @@ class AddTaskFloatingButton extends StatelessWidget {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 8.0),
       child: FloatingActionButton(
+        heroTag: key,
         backgroundColor: AppColors.primary,
         onPressed: () {
           showCreateTaskModal(context);

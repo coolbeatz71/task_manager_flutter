@@ -16,15 +16,16 @@ import 'package:todo_app/views/widgets/task_card/time_board.dart';
 class TaskCard extends StatefulWidget {
   final page;
   final Task task;
+  final double borderRadius;
 
-  const TaskCard({Key key, this.page, this.task}) : super(key: key);
+  const TaskCard({Key key, this.page, this.task, this.borderRadius = 10})
+      : super(key: key);
 
   @override
   _TaskCardState createState() => _TaskCardState();
 }
 
 class _TaskCardState extends State<TaskCard> {
-  final double _borderRadius = 10;
   final double _height = 100;
 
   bool isSwitched = false;
@@ -64,6 +65,7 @@ class _TaskCardState extends State<TaskCard> {
               Theme(
                 data: ThemeData(accentColor: Colors.transparent),
                 child: FloatingActionButton(
+                  heroTag: 'completed-task-$taskId',
                   elevation: 0,
                   mini: true,
                   onPressed: () {
@@ -109,6 +111,7 @@ class _TaskCardState extends State<TaskCard> {
               Theme(
                 data: ThemeData(accentColor: Colors.transparent),
                 child: FloatingActionButton(
+                  heroTag: 'delete-task-$taskId',
                   elevation: 0,
                   mini: true,
                   onPressed: () {
@@ -164,69 +167,67 @@ class _TaskCardState extends State<TaskCard> {
       return LinearGradient(colors: [colors[0], colors[0]]);
     }
 
-    return Center(
-      child: Stack(
-        children: <Widget>[
-          Container(
-            height: _height,
-            decoration: BoxDecoration(
-              border: widget.page == TaskPageStatus.active
-                  ? Border.all(width: 0.5, color: AppColors.secondary)
-                  : null,
-              borderRadius: BorderRadius.circular(_borderRadius),
-              gradient: buildLinearGradient(widget.page, isCompleted),
-            ),
+    return Stack(
+      children: <Widget>[
+        Container(
+          height: _height,
+          decoration: BoxDecoration(
+            border: widget.page == TaskPageStatus.active
+                ? Border.all(width: 0.5, color: AppColors.secondary)
+                : null,
+            borderRadius: BorderRadius.circular(widget.borderRadius),
+            gradient: buildLinearGradient(widget.page, isCompleted),
           ),
-          Positioned(
-            top: 0,
-            right: 0,
-            bottom: 0,
-            child: Visibility(
-              maintainSize: false,
-              maintainState: true,
-              maintainAnimation: true,
-              visible: widget.page == TaskPageStatus.all && !isCompleted,
-              child: CustomPaint(
-                size: Size(82, _height),
-                painter: CustomCardShapePainter(
-                  _borderRadius,
-                  colors[0],
-                  colors[1],
-                ),
+        ),
+        Positioned(
+          top: 0,
+          right: 0,
+          bottom: 0,
+          child: Visibility(
+            maintainSize: false,
+            maintainState: true,
+            maintainAnimation: true,
+            visible: widget.page == TaskPageStatus.all && !isCompleted,
+            child: CustomPaint(
+              size: Size(82, _height),
+              painter: CustomCardShapePainter(
+                widget.borderRadius,
+                colors[0],
+                colors[1],
               ),
             ),
           ),
-          Positioned.fill(
-            child: Row(
-              children: <Widget>[
-                Expanded(
-                  flex: 3,
-                  child: TimeBoard(
-                    page: widget.page,
-                    isCompleted: isCompleted,
-                    hour: hour,
-                    minute: minute,
-                  ),
+        ),
+        Positioned.fill(
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                flex: 3,
+                child: TimeBoard(
+                  page: widget.page,
+                  isCompleted: isCompleted,
+                  hour: hour,
+                  minute: minute,
                 ),
-                Expanded(
-                  flex: 6,
-                  child: TextTaskInfo(
-                    page: widget.page,
-                    isCompleted: isCompleted,
-                    title: widget.task.title,
-                    note: widget.task.note,
-                    date: date,
-                  ),
+              ),
+              Expanded(
+                flex: 6,
+                child: TextTaskInfo(
+                  page: widget.page,
+                  isCompleted: isCompleted,
+                  title: widget.task.title,
+                  note: widget.task.note,
+                  date: date,
                 ),
-                Expanded(
-                  flex: 2,
-                  child: buildTaskAction(isCompleted),
-                ),
-              ],
-            ),
+              ),
+              Expanded(
+                flex: 2,
+                child: buildTaskAction(isCompleted),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+      ],
     );
   }
 }

@@ -39,6 +39,7 @@ class _AllTaskState extends State<ActiveTask> {
               accentColor: Colors.transparent,
             ),
             child: FloatingActionButton(
+              heroTag: widget.key,
               mini: true,
               elevation: 0,
               tooltip: 'Filter by date',
