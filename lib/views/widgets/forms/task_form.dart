@@ -8,8 +8,11 @@ import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
 
 class TaskForm extends StatefulWidget {
+  final Task task;
+
   const TaskForm({
     Key key,
+    this.task,
   }) : super(key: key);
 
   @override
@@ -96,7 +99,7 @@ class _TaskFormState extends State<TaskForm> {
                         decoration: buildInputDecoration(
                           false,
                           'Time',
-                          iconData: Icons.access_time,
+                          iconData: Icons.alarm,
                         ),
                       ),
                     ),

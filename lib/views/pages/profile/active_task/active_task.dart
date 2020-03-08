@@ -39,6 +39,7 @@ class _AllTaskState extends State<ActiveTask> {
               accentColor: Colors.transparent,
             ),
             child: FloatingActionButton(
+              heroTag: widget.key,
               mini: true,
               elevation: 0,
               tooltip: 'Filter by date',
@@ -84,17 +85,21 @@ class _AllTaskState extends State<ActiveTask> {
             ),
             Column(
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    DayTasksText(),
-                    AddTaskFloatingButton(),
-                  ],
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      DayTasksText(),
+                      AddTaskFloatingButton(fromPage: TaskPageStatus.active),
+                    ],
+                  ),
                 ),
+                Divider(),
                 Container(
                   padding: EdgeInsets.only(top: 6.0),
                   height: MediaQuery.of(context).size.height -
-                      (4 * kBottomNavigationBarHeight),
+                      (4.9 * kBottomNavigationBarHeight),
                   child: TaskList(
                     taskStream: taskStream,
                     pageStatus: pageStatus,

@@ -7,9 +7,10 @@ import 'package:todo_app/helpers/animation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
+import 'package:todo_app/routes/router.gr.dart';
 import 'package:todo_app/views/pages/home/home.dart';
 import 'package:todo_app/views/widgets/illustration.dart';
-import 'package:todo_app/views/widgets/todo_card/task_card.dart';
+import 'package:todo_app/views/widgets/task_card/task_card.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({
@@ -20,6 +21,7 @@ class TaskList extends StatelessWidget {
 
   final Stream taskStream;
   final TaskPageStatus pageStatus;
+  final double _borderRadius = 10;
 
   @override
   Widget build(BuildContext context) {
@@ -96,9 +98,20 @@ class TaskList extends StatelessWidget {
                 create: (context) => TaskBloc(),
                 child: FadeAnimation(
                   0.4,
-                  child: TaskCard(
-                    task: taskList[index],
-                    page: pageStatus,
+                  child: InkWell(
+                    borderRadius: BorderRadius.circular(_borderRadius),
+                    onTap: () {
+                      Task task = taskList[index];
+                      Navigator.of(context).pushNamed(
+                        Router.detailsPage,
+                        arguments: DetailsArguments(task: task),
+                      );
+                    },
+                    child: TaskCard(
+                      borderRadius: _borderRadius,
+                      task: taskList[index],
+                      page: pageStatus,
+                    ),
                   ),
                 ),
               ),

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/helpers/utils.dart';
-import 'package:todo_app/views/widgets/todo_card/card_color.dart';
+import 'package:todo_app/views/widgets/task_card/card_color.dart';
 
 class TextTaskInfo extends StatelessWidget {
   final TaskPageStatus page;

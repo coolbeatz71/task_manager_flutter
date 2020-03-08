@@ -9,7 +9,7 @@ class Home extends StatelessWidget {
   const Home({Key key}) : super(key: key);
 
   showCreateTaskModal(BuildContext context) {
-    Utils.showBottomSheet(context);
+    Utils.showBottomSheet(context, null);
   }
 
   @override

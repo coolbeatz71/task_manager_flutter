@@ -2,11 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/helpers/colors.dart';
+import 'package:todo_app/models/task.dart';
 import 'package:todo_app/views/widgets/forms/task_form.dart';
 
 class BottomSheetContainer extends StatelessWidget {
+  final Task task;
   const BottomSheetContainer({
     Key key,
+    this.task,
   }) : super(key: key);
 
   @override
@@ -48,6 +51,7 @@ class BottomSheetContainer extends StatelessWidget {
                         child: Theme(
                           data: new ThemeData(accentColor: Colors.transparent),
                           child: FloatingActionButton(
+                            heroTag: key,
                             elevation: 0,
                             mini: true,
                             onPressed: () {
@@ -67,7 +71,7 @@ class BottomSheetContainer extends StatelessWidget {
               ),
               BlocProvider(
                 create: (context) => TaskBloc(),
-                child: TaskForm(),
+                child: TaskForm(task: task),
               ),
             ],
           ),
