@@ -2,22 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/helpers/colors.dart';
+import 'package:todo_app/models/task.dart';
 import 'package:todo_app/views/pages/home/bottomsheet.dart';
 
 enum TaskPageStatus {
   all,
   completed,
   active,
+  details,
 }
 
 class Utils {
   Utils();
 
-  Utils.showBottomSheet(BuildContext context) {
+  Utils.showBottomSheet(BuildContext context, Task task) {
     showModalBottomSheet(
       context: context,
       isScrollControlled: true,
-      builder: (context) => BottomSheetContainer(),
+      builder: (context) => BottomSheetContainer(task: task),
     );
   }
 

@@ -90,7 +90,7 @@ class _AllTaskState extends State<AllTask> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       DayTasksText(),
-                      AddTaskFloatingButton(),
+                      AddTaskFloatingButton(fromPage: TaskPageStatus.all),
                     ],
                   ),
                 ),

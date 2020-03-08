@@ -90,7 +90,7 @@ class _AllTaskState extends State<CompletedTask> {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
                       DayTasksText(),
-                      AddTaskFloatingButton(),
+                      AddTaskFloatingButton(fromPage: TaskPageStatus.completed),
                     ],
                   ),
                 ),

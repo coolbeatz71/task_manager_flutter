@@ -1,14 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
+import 'package:todo_app/models/task.dart';
 
 class AddTaskFloatingButton extends StatelessWidget {
-  const AddTaskFloatingButton({
+  final IconData icon;
+  final Task task;
+  final TaskPageStatus fromPage;
+
+  AddTaskFloatingButton({
     Key key,
+    this.task,
+    this.icon = Icons.add,
+    @required this.fromPage,
   }) : super(key: key);
 
   showCreateTaskModal(BuildContext context) {
-    Utils.showBottomSheet(context);
+    Utils.showBottomSheet(context, task);
   }
 
   @override
@@ -22,7 +30,7 @@ class AddTaskFloatingButton extends StatelessWidget {
           showCreateTaskModal(context);
         },
         tooltip: 'Create a task',
-        child: Icon(Icons.add, size: 30),
+        child: Icon(icon, size: 30),
       ),
     );
   }

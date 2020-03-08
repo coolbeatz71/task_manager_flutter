@@ -19,10 +19,10 @@ class DayTasksText extends StatelessWidget {
       children: <Widget>[
         Container(
           margin: EdgeInsets.only(right: 12.0),
-          padding: EdgeInsets.all(12.0),
+          padding: EdgeInsets.all(16.0),
           decoration: BoxDecoration(
             color: AppColors.lightGrey,
-            borderRadius: BorderRadius.circular(10.0),
+            borderRadius: BorderRadius.circular(40.0),
           ),
           child: SvgPicture.asset(
             'assets/images/to-do-list.svg',
