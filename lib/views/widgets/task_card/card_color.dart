@@ -19,7 +19,7 @@ class CardColor {
         return [AppColors.disabled, AppColors.disabled];
         break;
       default:
-        return [AppColors.lightGrey, AppColors.primary];
+        return [Color(0xFFF6E1EC), AppColors.primary];
         break;
     }
   }

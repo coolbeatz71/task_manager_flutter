@@ -172,9 +172,6 @@ class _TaskCardState extends State<TaskCard> {
         Container(
           height: _height,
           decoration: BoxDecoration(
-            border: widget.page == TaskPageStatus.active
-                ? Border.all(width: 0.5, color: AppColors.secondary)
-                : null,
             borderRadius: BorderRadius.circular(widget.borderRadius),
             gradient: buildLinearGradient(widget.page, isCompleted),
           ),

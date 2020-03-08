@@ -85,17 +85,21 @@ class _AllTaskState extends State<ActiveTask> {
             ),
             Column(
               children: <Widget>[
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    DayTasksText(),
-                    AddTaskFloatingButton(),
-                  ],
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 8.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      DayTasksText(),
+                      AddTaskFloatingButton(),
+                    ],
+                  ),
                 ),
+                Divider(),
                 Container(
                   padding: EdgeInsets.only(top: 6.0),
                   height: MediaQuery.of(context).size.height -
-                      (4 * kBottomNavigationBarHeight),
+                      (4.9 * kBottomNavigationBarHeight),
                   child: TaskList(
                     taskStream: taskStream,
                     pageStatus: pageStatus,
