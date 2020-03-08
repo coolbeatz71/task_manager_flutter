@@ -22,6 +22,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       yield* _mapDeleteTask(event);
     } else if (event is CompleteTaskEvent) {
       yield* _mapCompleteTask(event);
+    } else if (event is UpdateTaskEvent) {
+      yield* _mapUpdateTask(event);
     }
   }
 
@@ -40,5 +42,11 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     yield TaskCompleting();
     await _firestore.completeTask(event.taskId, event.isCompleted);
     yield TaskCompleted();
+  }
+
+  Stream<TaskState> _mapUpdateTask(UpdateTaskEvent event) async* {
+    yield TaskLoading();
+    await _firestore.updateTask(event.taskId, event.task);
+    yield TaskSubmitted();
   }
 }

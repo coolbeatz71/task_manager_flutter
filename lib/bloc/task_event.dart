@@ -29,5 +29,15 @@ class CompleteTaskEvent extends TaskEvent {
   CompleteTaskEvent(this.taskId, this.isCompleted);
 
   @override
-  List<Object> get props => [taskId];
+  List<Object> get props => [taskId, isCompleted];
+}
+
+class UpdateTaskEvent extends TaskEvent {
+  final String taskId;
+  final Task task;
+
+  UpdateTaskEvent(this.taskId, this.task);
+
+  @override
+  List<Object> get props => [taskId, task];
 }

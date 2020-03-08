@@ -29,7 +29,8 @@ class AddTaskFloatingButton extends StatelessWidget {
         onPressed: () {
           showCreateTaskModal(context);
         },
-        tooltip: 'Create a task',
+        tooltip:
+            (fromPage == TaskPageStatus.details) ? 'Edit task' : 'Create task',
         child: Icon(icon, size: 30),
       ),
     );
