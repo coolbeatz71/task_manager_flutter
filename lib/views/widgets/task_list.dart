@@ -90,6 +90,7 @@ class TaskList extends StatelessWidget {
         }
 
         return ListView.builder(
+          scrollDirection: Axis.vertical,
           itemCount: taskList.length,
           itemBuilder: (context, index) {
             return Padding(

@@ -19,7 +19,6 @@ class ActiveTask extends StatefulWidget {
 class _AllTaskState extends State<ActiveTask> {
   final pageStatus = TaskPageStatus.active;
   DateTime _selectedValue;
-  bool isFilterSelected = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,55 +32,23 @@ class _AllTaskState extends State<ActiveTask> {
         title: Text(widget.title),
         backgroundColor: AppColors.primary,
         leading: Icon(Icons.event_note),
-        actions: <Widget>[
-          Theme(
-            data: ThemeData(
-              accentColor: Colors.transparent,
-            ),
-            child: FloatingActionButton(
-              heroTag: widget.key,
-              mini: true,
-              elevation: 0,
-              tooltip: 'Filter by date',
-              child: Icon(Icons.date_range, size: 22),
-              backgroundColor:
-                  isFilterSelected ? AppColors.primaryAccent : null,
-              onPressed: () {
-                setState(() {
-                  isFilterSelected = !isFilterSelected;
-                });
-              },
-            ),
-          ),
-          IconButton(
-            tooltip: 'Mark All as done',
-            icon: Icon(Icons.playlist_add_check),
-            onPressed: () {},
-          ),
-        ],
       ),
       body: Container(
         padding: EdgeInsets.all(8.0),
         child: Column(
           children: <Widget>[
-            Visibility(
-              maintainSize: false,
-              maintainAnimation: true,
-              maintainState: true,
-              visible: isFilterSelected,
-              child: Column(
-                children: <Widget>[
-                  DatePickerTimeline(
-                    _selectedValue,
-                    onDateChange: (date) {
-                      setState(() {
-                        _selectedValue = date;
-                      });
-                    },
-                  ),
-                  Divider(color: AppColors.darkGrey),
-                ],
-              ),
+            Column(
+              children: <Widget>[
+                DatePickerTimeline(
+                  _selectedValue,
+                  onDateChange: (date) {
+                    setState(() {
+                      _selectedValue = date;
+                    });
+                  },
+                ),
+                Divider(),
+              ],
             ),
             Column(
               children: <Widget>[
@@ -97,14 +64,13 @@ class _AllTaskState extends State<ActiveTask> {
                 ),
                 Divider(),
                 Container(
-                  padding: EdgeInsets.only(top: 6.0),
                   height: MediaQuery.of(context).size.height -
-                      (4.9 * kBottomNavigationBarHeight),
+                      (6 * kBottomNavigationBarHeight),
                   child: TaskList(
                     taskStream: taskStream,
                     pageStatus: pageStatus,
                   ),
-                ),
+                )
               ],
             ),
           ],
