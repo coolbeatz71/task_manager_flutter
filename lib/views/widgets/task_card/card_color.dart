@@ -28,8 +28,8 @@ class CardColor {
     if (page == TaskPageStatus.all && !isCompleted) {
       return Colors.white;
     } else if (isCompleted) {
-      return Colors.black38;
+      return Colors.black26;
     }
-    return AppColors.secondary;
+    return Colors.black45;
   }
 }

@@ -3,7 +3,7 @@ import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/core/dimen.dart';
 
 const TextStyle defaultMonthTextStyle = TextStyle(
-  color: AppColors.dark,
+  color: AppColors.darkGrey,
   fontSize: Dimen.monthTextSize,
   fontFamily: 'Open Sans',
   fontWeight: FontWeight.w600,

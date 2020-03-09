@@ -68,7 +68,7 @@ class Details extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          DayTasksText(taskStream: taskStream),
+                          DayTasksText(),
                           AddTaskFloatingButton(
                             task: taskData != null ? detailsTask : task,
                             fromPage: TaskPageStatus.details,
