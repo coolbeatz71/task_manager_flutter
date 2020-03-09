@@ -22,9 +22,7 @@ class BottomSheetContainer extends StatelessWidget {
         ),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.all(
-            Radius.circular(10),
-          ),
+          borderRadius: BorderRadius.all(Radius.circular(10)),
         ),
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 12.0, vertical: 12.0),

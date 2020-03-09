@@ -20,6 +20,9 @@ class FirestoreService {
         );
   }
 
+  Stream<DocumentSnapshot> getTaskById(String id) =>
+      collection.document(id).snapshots();
+
   Stream<List<Task>> getTaskByStatus(String userId, {bool isCompleted = true}) {
     return collection
         .where("userId", isEqualTo: userId)
@@ -42,4 +45,9 @@ class FirestoreService {
       collection.document(id).updateData(
         {"isCompleted": field},
       );
+
+  Future<void> updateTask(String id, Task task) =>
+      collection.document(id).updateData(
+            task.toDocument(),
+          );
 }

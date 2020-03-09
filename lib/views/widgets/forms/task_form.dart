@@ -36,10 +36,16 @@ class _TaskFormState extends State<TaskForm> {
   void initState() {
     super.initState();
 
-    _titleCtrl = TextEditingController(text: '');
-    _noteCtrl = TextEditingController(text: '');
-    _dateCtrl = TextEditingController(text: '');
-    _timeCtrl = TextEditingController(text: '');
+    final Task task = widget.task;
+
+    _titleCtrl = TextEditingController(text: task == null ? '' : task.title);
+    _noteCtrl = TextEditingController(text: task == null ? '' : task.note);
+    _dateCtrl = TextEditingController(
+      text: task == null ? '' : Utils.dateToString(task.date).substring(0, 10),
+    );
+    _timeCtrl = TextEditingController(
+      text: task == null ? '' : Utils.formatTime(task.time),
+    );
   }
 
   @override
@@ -120,7 +126,7 @@ class _TaskFormState extends State<TaskForm> {
             ),
             SizedBox(height: 20),
             Container(
-              child: buildFlatButton(context),
+              child: buildFlatButton(context, widget.task),
             ),
           ],
         ),
@@ -128,7 +134,7 @@ class _TaskFormState extends State<TaskForm> {
     );
   }
 
-  FlatButton buildFlatButton(BuildContext context) {
+  FlatButton buildFlatButton(BuildContext context, task) {
     return FlatButton(
       onPressed: _isButtonDisabled
           ? null
@@ -143,11 +149,13 @@ class _TaskFormState extends State<TaskForm> {
                   note: _noteCtrl.text,
                   date: date,
                   time: time,
-                  isCompleted: false,
+                  isCompleted: task == null ? false : task.isCompleted,
                 );
 
                 BlocProvider.of<TaskBloc>(context).add(
-                  CreateTaskEvent(newTask),
+                  task == null
+                      ? CreateTaskEvent(newTask)
+                      : UpdateTaskEvent(task.id, newTask),
                 );
               } else {
                 setState(() => _autoValidate = true);
@@ -170,7 +178,11 @@ class _TaskFormState extends State<TaskForm> {
             setState(() {
               _isButtonDisabled = false;
             });
-            Utils.showToast(message: 'Task successfully created');
+            Utils.showToast(
+              message: task == null
+                  ? 'Task successfully created'
+                  : 'Task successfully updated',
+            );
             Navigator.of(context).pop();
           }
         },
@@ -180,7 +192,7 @@ class _TaskFormState extends State<TaskForm> {
             builder: (BuildContext context, TaskState state) {
               if (state is TaskInitial || state is TaskSubmitted) {
                 return Text(
-                  'Submit',
+                  task == null ? 'Submit' : 'Update',
                   textAlign: TextAlign.center,
                   style: TextStyle(
                     fontSize: 14,
@@ -206,6 +218,10 @@ class _TaskFormState extends State<TaskForm> {
   InputDecoration buildInputDecoration(bool isTextArea, String hintText,
           {IconData iconData}) =>
       InputDecoration(
+        filled: true,
+        hintText: hintText,
+        fillColor: Colors.grey[100],
+        prefixIcon: isTextArea ? null : Icon(iconData),
         contentPadding: isTextArea ? EdgeInsets.all(15.0) : null,
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.transparent),
@@ -219,9 +235,5 @@ class _TaskFormState extends State<TaskForm> {
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red),
         ),
-        hintText: hintText,
-        prefixIcon: isTextArea ? null : Icon(iconData),
-        filled: true,
-        fillColor: Colors.grey[100],
       );
 }
