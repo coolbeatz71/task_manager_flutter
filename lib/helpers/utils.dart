@@ -113,7 +113,7 @@ class Utils {
     FlutterFlexibleToast.showToast(
       message: message,
       toastLength: Toast.LENGTH_LONG,
-      toastGravity: ToastGravity.TOP,
+      toastGravity: ToastGravity.BOTTOM,
       icon: ICON.SUCCESS,
       radius: 10,
       elevation: 0,
