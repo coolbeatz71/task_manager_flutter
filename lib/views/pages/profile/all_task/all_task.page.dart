@@ -18,7 +18,7 @@ class AllTask extends StatefulWidget {
 
 class _AllTaskState extends State<AllTask> {
   final pageStatus = TaskPageStatus.all;
-  DateTime _selectedValue = DateTime.now();
+  DateTime _selectedValue;
   bool isFilterSelected = false;
 
   @override
@@ -89,7 +89,7 @@ class _AllTaskState extends State<AllTask> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: <Widget>[
-                      DayTasksText(taskStream: taskStream),
+                      DayTasksText(),
                       AddTaskFloatingButton(fromPage: TaskPageStatus.all),
                     ],
                   ),

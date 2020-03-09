@@ -4,17 +4,19 @@ import 'package:flutter_svg/svg.dart';
 import 'package:intl/intl.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/models/task.dart';
+import 'package:todo_app/services/firestore.dart';
 
 class DayTasksText extends StatelessWidget {
-  final Stream taskStream;
-
   const DayTasksText({
     Key key,
-    @required this.taskStream,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    Stream taskStream = FirestoreService().getTaskByUser(
+      'c9ad90ca-7071-41c4-bb42-7945ea330a3a',
+    );
+
     return StreamBuilder<Object>(
         stream: taskStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
