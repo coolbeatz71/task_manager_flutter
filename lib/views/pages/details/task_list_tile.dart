@@ -23,7 +23,7 @@ class TaskListTile extends StatelessWidget {
         style: TextStyle(
           fontFamily: 'Open Sans',
           color: AppColors.darkGrey,
-          fontSize: 15,
+          fontSize: 12,
         ),
       ),
       subtitle: Text(
@@ -31,10 +31,10 @@ class TaskListTile extends StatelessWidget {
         style: TextStyle(
           fontFamily: 'Open Sans',
           fontWeight: FontWeight.w300,
-          fontSize: 18,
+          fontSize: 15,
         ),
       ),
-      contentPadding: EdgeInsets.all(5.0),
+      contentPadding: EdgeInsets.all(8.0),
     );
   }
 }

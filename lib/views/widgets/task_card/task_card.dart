@@ -120,7 +120,6 @@ class _TaskCardState extends State<TaskCard> {
                         BlocProvider.of<TaskBloc>(context).add(
                           DeleteTaskEvent(taskId),
                         );
-                        Navigator.of(context).pop();
                       },
                       padding: 16.2,
                       context: context,

@@ -3,6 +3,7 @@ library date_picker_timeline;
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:todo_app/helpers/colors.dart';
+import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/date_widget.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/core/style.dart';
 import 'package:todo_app/views/widgets/date_picker_timeline/gestures/tap.dart';
@@ -57,7 +58,7 @@ class _DatePickerState extends State<DatePickerTimeline> {
           // Return the Date Widget
           DateTime _date = DateTime.now().add(Duration(days: index));
           DateTime date = DateTime(_date.year, _date.month, _date.day);
-          bool isSelected = compareDate(date, widget.currentDate);
+          bool isSelected = Utils.compareDate(date, widget.currentDate);
 
           return DateWidget(
             date: date,
@@ -83,15 +84,5 @@ class _DatePickerState extends State<DatePickerTimeline> {
         },
       ),
     );
-  }
-
-  bool compareDate(DateTime date1, DateTime date2) {
-    if (date2 != null) {
-      return date1.day == date2.day &&
-          date1.month == date2.month &&
-          date1.year == date2.year;
-    }
-
-    return false;
   }
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:intl/intl.dart';
 import 'package:todo_app/bloc/task_bloc.dart';
 import 'package:todo_app/core/dialog.dart';
 import 'package:todo_app/helpers/animation.dart';
@@ -9,19 +10,21 @@ import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
 import 'package:todo_app/routes/router.gr.dart';
 import 'package:todo_app/views/pages/home/home.dart';
-import 'package:todo_app/views/widgets/illustration.dart';
+import 'package:todo_app/views/widgets/no_data_illustration.dart';
 import 'package:todo_app/views/widgets/task_card/task_card.dart';
 
 class TaskList extends StatelessWidget {
   const TaskList({
     Key key,
+    this.dateFilter,
     @required this.taskStream,
     @required this.pageStatus,
   }) : super(key: key);
 
-  final Stream taskStream;
-  final TaskPageStatus pageStatus;
   final double _borderRadius = 10;
+  final Stream taskStream;
+  final DateTime dateFilter;
+  final TaskPageStatus pageStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -63,30 +66,25 @@ class TaskList extends StatelessWidget {
               break;
 
             default:
-              return Center(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Illustration(
-                      image: 'assets/images/undraw_no_data.svg',
-                      width: 80,
-                      height: 180,
-                    ),
-                    Text(
-                      'No task found',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                        color: Colors.grey,
-                        height: 1.4,
-                        fontSize: 20,
-                        fontFamily: 'Open Sans',
-                        fontWeight: FontWeight.w300,
-                      ),
-                    )
-                  ],
-                ),
-              );
+              return NoDataIllustration();
           }
+        }
+
+        // filter
+        if (dateFilter != null) {
+          List<Task> filteredTask = taskList.where((item) {
+            return Utils.compareDate(item.date, dateFilter);
+          }).toList();
+
+          String formattedDate = DateFormat('yyyy MMM dd').format(dateFilter);
+
+          if (filteredTask.length == 0) {
+            return NoDataIllustration(
+              message: 'No task scheduled for $formattedDate was found',
+            );
+          }
+
+          taskList = filteredTask;
         }
 
         return ListView.builder(
