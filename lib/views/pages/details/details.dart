@@ -21,6 +21,9 @@ class Details extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    FirestoreService firestoreService = FirestoreService();
+    Stream taskStream = firestoreService.getTaskById(task.id);
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -28,7 +31,7 @@ class Details extends StatelessWidget {
         backgroundColor: AppColors.primary,
       ),
       body: StreamBuilder<Object>(
-        stream: FirestoreService().getTaskById(task.id),
+        stream: taskStream,
         builder: (BuildContext context, AsyncSnapshot snapshot) {
           var taskData = snapshot.data;
           if (snapshot.hasError) {
@@ -65,7 +68,7 @@ class Details extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: <Widget>[
-                          DayTasksText(),
+                          DayTasksText(taskStream: taskStream),
                           AddTaskFloatingButton(
                             task: taskData != null ? detailsTask : task,
                             fromPage: TaskPageStatus.details,
