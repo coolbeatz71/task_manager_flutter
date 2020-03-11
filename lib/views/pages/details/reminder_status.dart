@@ -31,7 +31,7 @@ class TaskReminderStatus extends StatelessWidget {
                     child: FaIcon(
                       FontAwesomeIcons.solidBell,
                       color: AppColors.darkGrey,
-                      size: 25,
+                      size: 20,
                     ),
                   ),
                 ),
