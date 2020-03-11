@@ -11,7 +11,11 @@ class FirestoreService {
   CollectionReference collection = _db.collection('task');
 
   Stream<List<Task>> getTaskByUser(String userId) {
-    return collection.where("userId", isEqualTo: userId).snapshots().map(
+    return collection
+        .where("userId", isEqualTo: userId)
+        .orderBy('updatedAt', descending: true)
+        .snapshots()
+        .map(
           (snapshot) => snapshot.documents.map(
             (doc) {
               return Task.fromSnapshot(doc);
@@ -27,6 +31,7 @@ class FirestoreService {
     return collection
         .where("userId", isEqualTo: userId)
         .where("isCompleted", isEqualTo: isCompleted)
+        .orderBy('updatedAt', descending: true)
         .snapshots()
         .map(
           (snapshot) => snapshot.documents.map(
@@ -44,6 +49,11 @@ class FirestoreService {
   Future<void> completeTask(String id, bool field) =>
       collection.document(id).updateData(
         {"isCompleted": field},
+      );
+
+  Future<void> setTaskReminder(String id, bool field) =>
+      collection.document(id).updateData(
+        {"isReminderSet": field},
       );
 
   Future<void> updateTask(String id, Task task) =>

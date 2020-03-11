@@ -24,6 +24,8 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
       yield* _mapCompleteTask(event);
     } else if (event is UpdateTaskEvent) {
       yield* _mapUpdateTask(event);
+    } else if (event is TaskReminderEvent) {
+      yield* _mapTaskReminder(event);
     }
   }
 
@@ -42,6 +44,12 @@ class TaskBloc extends Bloc<TaskEvent, TaskState> {
     yield TaskCompleting();
     await _firestore.completeTask(event.taskId, event.isCompleted);
     yield TaskCompleted();
+  }
+
+  Stream<TaskState> _mapTaskReminder(TaskReminderEvent event) async* {
+    yield TaskReminderSetting();
+    await _firestore.setTaskReminder(event.taskId, event.isReminderSet);
+    yield TaskReminderSet();
   }
 
   Stream<TaskState> _mapUpdateTask(UpdateTaskEvent event) async* {

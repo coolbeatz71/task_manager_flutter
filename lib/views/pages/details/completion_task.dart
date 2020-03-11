@@ -19,15 +19,15 @@ class TaskCompletionStatus extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     String dialogTitle = 'Confirm';
-    String completeMsg = 'Do you want to mark this task as completed';
-    String unCompleteMsg = 'Do you want to mark this task as uncompleted';
+    String completeMsg = 'Do you want to mark the task as completed?';
+    String unCompleteMsg = 'Do you want to mark the task as uncompleted?';
     return InkWell(
       onTap: () {
         completeTask(
           context,
           dialogTitle,
-          unCompleteMsg,
           completeMsg,
+          unCompleteMsg,
         ).show();
       },
       highlightColor: Colors.grey[100],
@@ -85,8 +85,8 @@ class TaskCompletionStatus extends StatelessWidget {
   AppFlushBar completeTask(
     BuildContext context,
     String dialogTitle,
-    String unCompleteMsg,
     String completeMsg,
+    String unCompleteMsg,
   ) {
     return AppFlushBar(
       onPressed: () {
