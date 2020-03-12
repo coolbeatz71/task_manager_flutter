@@ -10,6 +10,9 @@ class Task {
   final DateTime date;
   final TimeOfDay time;
   final bool isCompleted;
+  final bool isReminderSet;
+  final DateTime createdAt;
+  final DateTime updatedAt;
 
   Task({
     this.id = '',
@@ -19,6 +22,9 @@ class Task {
     this.date,
     this.time,
     this.isCompleted,
+    this.isReminderSet,
+    this.createdAt,
+    this.updatedAt,
   });
 
   Map<String, Object> toDocument() {
@@ -29,6 +35,9 @@ class Task {
       'date': Utils.dateToString(date),
       'time': Utils.formatTime(time),
       'isCompleted': isCompleted,
+      'isReminderSet': isReminderSet,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
     };
   }
 
@@ -39,5 +48,8 @@ class Task {
         note = snap.data['note'],
         date = Utils.toDate(snap.data['date']),
         time = Utils.toTime(snap.data['time']),
-        isCompleted = snap.data['isCompleted'];
+        isCompleted = snap.data['isCompleted'],
+        isReminderSet = snap.data['isReminderSet'],
+        createdAt = (snap.data['createdAt'] as Timestamp).toDate(),
+        updatedAt = (snap.data['updatedAt'] as Timestamp).toDate();
 }

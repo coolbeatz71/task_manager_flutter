@@ -32,6 +32,16 @@ class CompleteTaskEvent extends TaskEvent {
   List<Object> get props => [taskId, isCompleted];
 }
 
+class TaskReminderEvent extends TaskEvent {
+  final String taskId;
+  final bool isReminderSet;
+
+  TaskReminderEvent(this.taskId, this.isReminderSet);
+
+  @override
+  List<Object> get props => [taskId, isReminderSet];
+}
+
 class UpdateTaskEvent extends TaskEvent {
   final String taskId;
   final Task task;

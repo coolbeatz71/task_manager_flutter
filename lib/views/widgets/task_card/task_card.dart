@@ -48,8 +48,8 @@ class _TaskCardState extends State<TaskCard> {
     Widget buildTaskAction(bool isCompleted) {
       String dialogTitle = 'Confirm';
       String dialogMsg = 'Do you want to delete this task?';
-      String completeMsg = 'Do you want to mark this task as completed';
-      String unCompleteMsg = 'Do you want to mark this task as uncompleted';
+      String completeMsg = 'Do you want to mark this task as completed?';
+      String unCompleteMsg = 'Do you want to mark this task as uncompleted?';
 
       return BlocListener<TaskBloc, TaskState>(
         listener: (BuildContext context, TaskState state) {

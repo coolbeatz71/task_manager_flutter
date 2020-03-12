@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:todo_app/bloc/task_bloc.dart';
+import 'package:todo_app/core/custom_switch.dart';
 import 'package:todo_app/core/validation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
+import 'package:device_calendar/device_calendar.dart';
 
 class TaskForm extends StatefulWidget {
   final Task task;
@@ -22,6 +24,7 @@ class TaskForm extends StatefulWidget {
 class _TaskFormState extends State<TaskForm> {
   bool _autoValidate = false;
   bool _isButtonDisabled = false;
+  bool _isReminderSet = false;
 
   final _formKey = GlobalKey<FormState>();
   final Utils utils = Utils();
@@ -124,7 +127,35 @@ class _TaskFormState extends State<TaskForm> {
                 'Enter a little note to describe the task',
               ),
             ),
-            SizedBox(height: 20),
+            SizedBox(height: 8.0),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  CustomSwitch(
+                    activeColor: AppColors.primary,
+                    value: widget.task == null
+                        ? _isReminderSet
+                        : widget.task.isReminderSet,
+                    onChanged: (value) {
+                      setState(() {
+                        _isReminderSet = value;
+                      });
+                    },
+                  ),
+                  Text(
+                    'Set reminder for this task ?',
+                    style: TextStyle(
+                      fontFamily: 'Open Sans',
+                      color: AppColors.darkGrey,
+                      fontSize: 15,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            SizedBox(height: 25),
             Container(
               child: buildFlatButton(context, widget.task),
             ),
@@ -150,6 +181,9 @@ class _TaskFormState extends State<TaskForm> {
                   date: date,
                   time: time,
                   isCompleted: task == null ? false : task.isCompleted,
+                  createdAt: task == null ? DateTime.now() : task.createdAt,
+                  updatedAt: DateTime.now(),
+                  isReminderSet: _isReminderSet,
                 );
 
                 BlocProvider.of<TaskBloc>(context).add(
@@ -175,15 +209,16 @@ class _TaskFormState extends State<TaskForm> {
               _isButtonDisabled = true;
             });
           } else if (state is TaskSubmitted) {
+            Navigator.of(context).pop();
             setState(() {
               _isButtonDisabled = false;
             });
+
             Utils.showToast(
               message: task == null
                   ? 'Task successfully created'
                   : 'Task successfully updated',
             );
-            Navigator.of(context).pop();
           }
         },
         child: SizedBox(
