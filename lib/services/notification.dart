@@ -91,7 +91,7 @@ class Reminder {
 
     var vibrationPattern = Int64List(5);
     vibrationPattern[0] = 0;
-    vibrationPattern[1] = 1000;
+    vibrationPattern[1] = 500;
     vibrationPattern[2] = 2000;
     vibrationPattern[3] = 5000;
     vibrationPattern[4] = 10000;
@@ -120,14 +120,9 @@ class Reminder {
       iOSPlatformChannelSpecifics,
     );
 
-    print('task time $taskTime');
-    print('scheduled $scheduledTime');
-    print('now $now');
-    print('diff ${scheduledTime.difference(now).inMinutes}');
-
-    /// don't schedule the reminder
-    /// if the scheduled time is 5 minutes
-    /// before or a the same moment than now
+    // don't schedule the reminder
+    // if the scheduled time is 5 minutes
+    // before or a the same moment than now
     if (scheduledTime.isAtSameMomentAs(now) ||
         scheduledTime.isBefore(now) ||
         scheduledTime.difference(now).inMinutes <= 5 ||
@@ -164,7 +159,7 @@ class Reminder {
         );
   }
 
-  Future<int> setup(Task task) async {
+  Future<int> setup(String id, Task task) async {
     int year = task.date.year;
     int month = task.date.month;
     int day = task.date.day;
@@ -178,7 +173,7 @@ class Reminder {
     );
 
     return await schedule(
-      task.id,
+      id,
       task.title,
       task.note,
       formatted,

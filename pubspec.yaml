@@ -15,7 +15,7 @@ dependencies:
   flushbar: ^1.9.1
   ff_navigation_bar: ^0.1.4
   flutter_flexible_toast: ^0.1.4
-  cloud_firestore: ^0.13.3
+  cloud_firestore: ^0.13.4+2
   font_awesome_flutter: ^8.7.0
   flutter_svg: ^0.17.1
   uuid: ^2.0.4

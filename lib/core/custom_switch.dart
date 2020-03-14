@@ -64,7 +64,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                 : widget.onChanged(false);
           },
           child: Container(
-            width: 48.0,
+            width: 49.0,
             height: 22.0,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20.0),
@@ -73,7 +73,7 @@ class _CustomSwitchState extends State<CustomSwitch>
                   : widget.activeColor,
             ),
             child: Padding(
-              padding: const EdgeInsets.all(2.5),
+              padding: const EdgeInsets.all(2.0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[

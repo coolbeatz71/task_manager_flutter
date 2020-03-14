@@ -1,15 +1,20 @@
-import 'package:rxdart/subjects.dart';
 import 'package:flutter/material.dart';
 import 'package:todo_app/routes/router.gr.dart';
 import 'package:todo_app/services/auth_key.dart';
 import 'package:todo_app/services/notification.dart';
+import 'package:todo_app/views/pages/details/details.dart';
 
 Reminder reminder = Reminder();
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  reminder.init();
-  return runApp(MyApp());
+  await reminder.init();
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -18,23 +23,38 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  BehaviorSubject<String> selectNotificationSubject =
-      Reminder().selectNotificationSubject;
-
   @override
   void initState() {
     reminder.requestIOSPermissions();
     configureSelectNotificationSubject();
+    configureDidReceiveLocalNotificationSubject();
     super.initState();
   }
 
   void configureSelectNotificationSubject() {
-    selectNotificationSubject.stream.listen((String payload) async {
-      await Navigator.of(context).pushNamed(
-        Router.detailsPage,
-        arguments: DetailsArguments(id: payload),
-      );
-    });
+    reminder.selectNotificationSubject.stream.listen(
+      (String payload) async {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Details(id: payload),
+          ),
+        );
+      },
+    );
+  }
+
+  void configureDidReceiveLocalNotificationSubject() {
+    reminder.didReceiveLocalNotificationSubject.stream.listen(
+      (ReceivedNotification receivedNotification) async {
+        await Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => Details(id: receivedNotification.payload),
+          ),
+        );
+      },
+    );
   }
 
   @override
@@ -55,7 +75,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   void dispose() {
-    selectNotificationSubject.close();
     reminder.dispose();
     super.dispose();
   }
