@@ -7,7 +7,6 @@ import 'package:todo_app/core/validation.dart';
 import 'package:todo_app/helpers/colors.dart';
 import 'package:todo_app/helpers/utils.dart';
 import 'package:todo_app/models/task.dart';
-import 'package:device_calendar/device_calendar.dart';
 
 class TaskForm extends StatefulWidget {
   final Task task;
@@ -24,7 +23,7 @@ class TaskForm extends StatefulWidget {
 class _TaskFormState extends State<TaskForm> {
   bool _autoValidate = false;
   bool _isButtonDisabled = false;
-  bool _isReminderSet = false;
+  bool _isReminderSet;
 
   final _formKey = GlobalKey<FormState>();
   final Utils utils = Utils();
@@ -40,6 +39,7 @@ class _TaskFormState extends State<TaskForm> {
     super.initState();
 
     final Task task = widget.task;
+    _isReminderSet = widget.task?.isReminderSet ?? false;
 
     _titleCtrl = TextEditingController(text: task == null ? '' : task.title);
     _noteCtrl = TextEditingController(text: task == null ? '' : task.note);
@@ -69,7 +69,7 @@ class _TaskFormState extends State<TaskForm> {
                 iconData: Icons.edit,
               ),
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 10),
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
@@ -116,7 +116,7 @@ class _TaskFormState extends State<TaskForm> {
                 ),
               ],
             ),
-            SizedBox(height: 15),
+            SizedBox(height: 10),
             TextFormField(
               maxLines: 3,
               maxLength: 100,
@@ -127,7 +127,7 @@ class _TaskFormState extends State<TaskForm> {
                 'Enter a little note to describe the task',
               ),
             ),
-            SizedBox(height: 8.0),
+            SizedBox(height: 10),
             Container(
               padding: EdgeInsets.symmetric(vertical: 8.0),
               child: Row(
@@ -155,7 +155,7 @@ class _TaskFormState extends State<TaskForm> {
                 ],
               ),
             ),
-            SizedBox(height: 25),
+            SizedBox(height: 10),
             Container(
               child: buildFlatButton(context, widget.task),
             ),

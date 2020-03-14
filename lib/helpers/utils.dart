@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_flexible_toast/flutter_flexible_toast.dart';
 import 'package:intl/intl.dart';
@@ -23,8 +25,13 @@ class Utils {
     );
   }
 
-  static DateTime timeToDateTime(TimeOfDay time) {
-    return DateTime(0, 0, 0, time.hour, time.minute);
+  static DateTime timeToDateTime(
+    TimeOfDay time, {
+    year = 0,
+    month = 0,
+    day = 0,
+  }) {
+    return DateTime(year, month, day, time.hour, time.minute);
   }
 
   static String formatTime(TimeOfDay time) {
@@ -132,5 +139,10 @@ class Utils {
     }
 
     return false;
+  }
+
+  static int randomNumber() {
+    Random rng = new Random();
+    return rng.nextInt(900000000) + 100000000;
   }
 }

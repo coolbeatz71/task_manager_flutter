@@ -45,7 +45,7 @@ class TaskReminderStatus extends StatelessWidget {
                     child: FloatingActionButton(
                       heroTag: 'details-reminder-task-${task.id}',
                       elevation: 0,
-                      onPressed: () {},
+                      onPressed: null,
                       mini: true,
                       child: BlocBuilder<TaskBloc, TaskState>(
                         builder: (BuildContext context, TaskState state) {
@@ -101,7 +101,7 @@ class TaskReminderStatus extends StatelessWidget {
     return AppFlushBar(
       onPressed: () {
         BlocProvider.of<TaskBloc>(context).add(
-          TaskReminderEvent(task.id, !task.isReminderSet),
+          TaskReminderEvent(task, !task.isReminderSet),
         );
       },
       padding: 16.2,

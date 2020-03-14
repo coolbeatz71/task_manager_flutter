@@ -15,15 +15,16 @@ import 'package:todo_app/views/widgets/add_task_fb.dart';
 import 'package:todo_app/views/widgets/day_task.dart';
 
 class Details extends StatelessWidget {
+  final String id;
   final Task task;
 
-  Details({Key key, @required this.task}) : super(key: key);
+  Details({Key key, this.id, this.task}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     Task detailsTask;
     FirestoreService firestoreService = FirestoreService();
-    Stream taskStream = firestoreService.getTaskById(task.id);
+    Stream taskStream = firestoreService.getTaskById(id ?? task.id);
 
     return Scaffold(
       backgroundColor: Colors.white,

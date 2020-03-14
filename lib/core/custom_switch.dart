@@ -39,8 +39,12 @@ class _CustomSwitchState extends State<CustomSwitch>
     _circleAnimation = AlignmentTween(
             begin: widget.value ? Alignment.centerRight : Alignment.centerLeft,
             end: widget.value ? Alignment.centerLeft : Alignment.centerRight)
-        .animate(CurvedAnimation(
-            parent: _animationController, curve: Curves.linear));
+        .animate(
+      CurvedAnimation(
+        parent: _animationController,
+        curve: Curves.linear,
+      ),
+    );
   }
 
   @override
@@ -63,10 +67,11 @@ class _CustomSwitchState extends State<CustomSwitch>
             width: 48.0,
             height: 22.0,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(20.0),
-                color: _circleAnimation.value == Alignment.centerLeft
-                    ? widget.inactiveColor
-                    : widget.activeColor),
+              borderRadius: BorderRadius.circular(20.0),
+              color: _circleAnimation.value == Alignment.centerLeft
+                  ? widget.inactiveColor
+                  : widget.activeColor,
+            ),
             child: Padding(
               padding: const EdgeInsets.all(2.5),
               child: Row(

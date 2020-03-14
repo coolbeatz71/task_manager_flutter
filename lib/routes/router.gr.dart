@@ -28,13 +28,13 @@ class Router {
           settings: settings,
         );
       case Router.detailsPage:
-        if (hasInvalidArgs<DetailsArguments>(args, isRequired: true)) {
+        if (hasInvalidArgs<DetailsArguments>(args)) {
           return misTypedArgsRoute<DetailsArguments>(args);
         }
-        final typedArgs = args as DetailsArguments;
+        final typedArgs = args as DetailsArguments ?? DetailsArguments();
         return PageRouteBuilder<dynamic>(
-          pageBuilder: (ctx, animation, secondaryAnimation) =>
-              Details(key: typedArgs.key, task: typedArgs.task),
+          pageBuilder: (ctx, animation, secondaryAnimation) => Details(
+              key: typedArgs.key, id: typedArgs.id, task: typedArgs.task),
           settings: settings,
           transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
         );
@@ -51,6 +51,7 @@ class Router {
 //Details arguments holder class
 class DetailsArguments {
   final Key key;
+  final String id;
   final Task task;
-  DetailsArguments({this.key, @required this.task});
+  DetailsArguments({this.key, this.id, this.task});
 }
