@@ -10,6 +10,13 @@ import Firebase
   ) -> Bool {
     FirebaseApp.configure()
     GeneratedPluginRegistrant.register(with: self)
+    if #available(iOS 10.0, *) {
+        UNUserNotificationCenter.current().delegate = self as? UNUserNotificationCenterDelegate
+    }
+    if(!UserDefaults.standard.bool(forKey: "Notification")) {
+        UIApplication.shared.cancelAllLocalNotifications()
+        UserDefaults.standard.set(true, forKey: "Notification")
+    }
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
 }

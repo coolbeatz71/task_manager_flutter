@@ -64,7 +64,7 @@ class _AllTaskState extends State<AllTask> {
                 Divider(),
                 Container(
                   height: MediaQuery.of(context).size.height -
-                      (6.1 * kBottomNavigationBarHeight),
+                      (7 * kBottomNavigationBarHeight),
                   child: TaskList(
                     dateFilter: _selectedValue,
                     taskStream: taskStream,

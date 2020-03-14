@@ -128,23 +128,10 @@ class _TaskCardState extends State<TaskCard> {
                       actionText: 'Delete',
                     ).show();
                   },
-                  child: BlocBuilder<TaskBloc, TaskState>(
-                    builder: (BuildContext context, TaskState state) {
-                      if (state is TaskDeleting) {
-                        return Center(
-                          child: SpinKitThreeBounce(
-                            color: Colors.white,
-                            size: 14,
-                          ),
-                        );
-                      }
-
-                      return FaIcon(
-                        FontAwesomeIcons.solidTrashAlt,
-                        color: taskCardColors.texts,
-                        size: 18,
-                      );
-                    },
+                  child: FaIcon(
+                    FontAwesomeIcons.solidTrashAlt,
+                    color: taskCardColors.texts,
+                    size: 18,
                   ),
                 ),
               )

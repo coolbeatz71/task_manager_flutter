@@ -16,7 +16,7 @@ class BottomSheetContainer extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: Container(
-        margin: EdgeInsets.only(bottom: 8, left: 8, right: 8),
+        margin: EdgeInsets.only(bottom: 4, left: 8, right: 8),
         padding: EdgeInsets.only(
           bottom: MediaQuery.of(context).viewInsets.bottom,
         ),
@@ -29,7 +29,7 @@ class BottomSheetContainer extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Container(
-                padding: const EdgeInsets.only(bottom: 5.0),
+                padding: const EdgeInsets.only(bottom: 2.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
@@ -38,16 +38,16 @@ class BottomSheetContainer extends StatelessWidget {
                         'Task form',
                         style: TextStyle(
                           color: AppColors.darkGrey,
-                          fontSize: 24,
+                          fontSize: 20,
                           fontFamily: 'Open Sans',
-                          fontWeight: FontWeight.w900,
+                          fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     Flexible(
                       child: InkWell(
                         child: Theme(
-                          data: new ThemeData(accentColor: Colors.transparent),
+                          data: new ThemeData(accentColor: Colors.white),
                           child: FloatingActionButton(
                             heroTag: key,
                             elevation: 0,
@@ -57,7 +57,7 @@ class BottomSheetContainer extends StatelessWidget {
                             },
                             child: Icon(
                               Icons.close,
-                              size: 22,
+                              size: 20,
                               color: AppColors.darkGrey,
                             ),
                           ),

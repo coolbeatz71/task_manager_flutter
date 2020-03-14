@@ -140,7 +140,7 @@ packages:
       name: cloud_firestore
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.13.3"
+    version: "0.13.4+2"
   cloud_firestore_platform_interface:
     dependency: transitive
     description:
@@ -204,13 +204,6 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "1.3.3"
-  device_calendar:
-    dependency: "direct main"
-    description:
-      name: device_calendar
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "3.0.0+3"
   equatable:
     dependency: "direct main"
     description:
@@ -286,6 +279,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "0.1.4"
+  flutter_local_notifications:
+    dependency: "direct main"
+    description:
+      name: flutter_local_notifications
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.2.2"
+  flutter_local_notifications_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_local_notifications_platform_interface
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   flutter_spinkit:
     dependency: "direct main"
     description:
@@ -709,4 +716,4 @@ packages:
     version: "2.2.0"
 sdks:
   dart: ">=2.7.0 <3.0.0"
-  flutter: ">=1.12.13+hotfix.4 <2.0.0"
+  flutter: ">=1.12.13+hotfix.5 <2.0.0"

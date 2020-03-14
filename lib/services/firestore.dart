@@ -42,22 +42,32 @@ class FirestoreService {
         );
   }
 
-  Future<void> createTask(Task task) async => collection.add(task.toDocument());
+  Future<DocumentReference> createTask(Task task) async {
+    DocumentReference ref = await collection.add(task.toDocument());
+    return ref;
+  }
 
-  Future<void> deleteTask(String id) async => collection.document(id).delete();
+  Future<DocumentReference> deleteTask(String id) async {
+    DocumentReference ref = collection.document(id);
+    await ref.delete();
+    return ref;
+  }
 
-  Future<void> completeTask(String id, bool field) =>
-      collection.document(id).updateData(
-        {"isCompleted": field},
-      );
+  Future<void> completeTask(String id, bool field) async {
+    DocumentReference ref = collection.document(id);
+    await ref.updateData({"isCompleted": field});
+    return ref;
+  }
 
-  Future<void> setTaskReminder(String id, bool field) =>
-      collection.document(id).updateData(
-        {"isReminderSet": field},
-      );
+  Future<DocumentReference> setTaskReminder(String id, bool field) async {
+    DocumentReference ref = collection.document(id);
+    await ref.updateData({"isReminderSet": field});
+    return ref;
+  }
 
-  Future<void> updateTask(String id, Task task) =>
-      collection.document(id).updateData(
-            task.toDocument(),
-          );
+  Future<DocumentReference> updateTask(String id, Task task) async {
+    DocumentReference ref = collection.document(id);
+    await ref.updateData(task.toDocument());
+    return ref;
+  }
 }
